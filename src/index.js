@@ -52,3 +52,79 @@ mobservableReact.renderReporter.on(function(report) {
 		destroyHighlight(report.component);
 	}
 });
+
+$(document.body).mousemove(function(e) {
+	var target = e.target;
+	var component = byNodeRegistery.get(target);
+	if (component) {
+		$(target).css({
+			'outline' : '2px solid red'
+		});
+	}
+})
+
+function toggleShowRenderings() {
+	// TODO:change button state
+	showRendering = !showRendering;
+	if (!showRendering) {
+		$(".render-highlight").remove();
+		highlightRegistery = new WeakMap();
+	}
+}
+
+function showDependencies() {
+	setTimeout(function() {
+		var handler = $(document.body).one('click', function(e) {
+			var target = e.target;
+			var elem, component;
+			while(target) {
+				elem = $(target).closest("[data-reactid]")[0];
+				if (!elem) {
+					console.log("No react component found");
+					return;
+				}
+				component = byNodeRegistery.get(elem);
+				if (component)
+					break;
+				target = target.parentNode;
+			}
+			$(target).css("outline", "2px solid red");
+			var dependencyTree = mobservable.extras.getDependencyTree(component);
+
+			var transformTree = function(tree) {
+				var res = {};
+				res[tree.name] = !tree.dependencies ? true : tree.dependencies.map(transformTree);
+				return res;
+			};
+			var transformedTree = transformTree(dependencyTree);
+			console.dir(transformedTree);
+
+			/*var graph = $("<div></div>")
+				.addClass("mobservable-dependency-graph")
+				.appendTo(document.body)
+				//.click(() => graph.remove());
+
+				render();
+			*/
+
+			console.dir(dependencyTree);
+		});
+	}, 1);
+}
+
+function renderToolbar() {
+	var wrapper = $("<div></div>").addClass("mobservable-devtools-wrapper");
+	var toggleRendering = $("<button></button")
+		.text("Show renderings")
+		.on('click', toggleShowRenderings)
+		.appendTo(wrapper);
+
+	var toggleDepTree = $("<button></button")
+		.text("Show dependency tree")
+		.on('click', showDependencies)
+		.appendTo(wrapper);
+
+	wrapper.appendTo(document.body);
+}
+
+renderToolbar();
