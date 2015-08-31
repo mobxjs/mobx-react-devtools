@@ -5,7 +5,7 @@ module.exports = {
     hot: false,
     output: {
         libraryTarget: 'umd',
-        library: 'mobservable-devtools',
+        library: 'mobservableDevtools',
         path: __dirname,
         filename: 'index.js'
     },
