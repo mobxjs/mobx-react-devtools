@@ -1,40 +1,40 @@
 {
-  "name": "mobservable-react-devtools",
-  "version": "0.1.0",
-  "description": "Dev-tools for Mobservable and React",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mweststrate/mobservable-react-devtools.git"
-  },
-  "scripts": {
-    "build": "./node_modules/webpack/bin/webpack.js",
-    "prepublish": "npm run build"
-  },
-  "author": "Michel Weststrate",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mweststrate/mobservable/issues"
-  },
-  "homepage": "https://mweststrate.github.io/mobservable",
-  "peerDependencies": {
-    "mobservable": "^0.6.2",
-    "mobservable-react": "^0.1.0"
-  },
-  "devDependencies": {
-    "webpack": "^1.12.0"
-  },
-  "keywords": [
-    "mobservable",
-    "react-component",
-    "react",
-    "reactjs",
-    "reactive",
-    "devtools"
-  ],
-  "dependencies": {
-    "style-loader": "^0.12.3",
-    "css-loader": "^0.16.0",
-    "jquery": "^2.1.4"
-  }
+    "name": "mobservable-react-devtools",
+    "version": "0.1.1",
+    "description": "Dev-tools for Mobservable and React",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mweststrate/mobservable-react-devtools.git"
+    },
+    "scripts": {
+        "build": "./node_modules/webpack/bin/webpack.js",
+        "prepublish": "npm run build"
+    },
+    "author": "Michel Weststrate",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mweststrate/mobservable/issues"
+    },
+    "homepage": "https://mweststrate.github.io/mobservable",
+    "peerDependencies": {
+        "mobservable": "^0.6.2",
+        "mobservable-react": "^0.1.0"
+    },
+    "devDependencies": {
+        "webpack": "^1.12.0"
+    },
+    "keywords": [
+        "mobservable",
+        "react-component",
+        "react",
+        "reactjs",
+        "reactive",
+        "devtools"
+    ],
+    "dependencies": {
+        "style-loader": "^0.12.3",
+        "css-loader": "^0.16.0",
+        "jquery": "^2.1.4"
+    }
 }
