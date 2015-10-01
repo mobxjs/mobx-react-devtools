@@ -25,3 +25,5 @@ For each component the color indicates roughly how long the coloring took. Rende
 * Be able to turn dev-tools on and off.
 * Select and log dependency tree of components
 * Visualize dependency tree of components
+* Be able to change loglevel of mobservable
+* Be able to enable state change tracking from the extras module

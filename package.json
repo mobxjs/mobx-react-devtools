@@ -18,8 +18,8 @@
     },
     "homepage": "https://mweststrate.github.io/mobservable",
     "peerDependencies": {
-        "mobservable": "^0.6.2",
-        "mobservable-react": "^0.1.0"
+        "mobservable": "^0.7.0",
+        "mobservable-react": "^0.2.0"
     },
     "devDependencies": {
         "webpack": "^1.12.0"
