@@ -1,6 +1,6 @@
 {
     "name": "mobservable-react-devtools",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "description": "Dev-tools for Mobservable and React",
     "main": "index.js",
     "repository": {
@@ -18,8 +18,8 @@
     },
     "homepage": "https://mweststrate.github.io/mobservable",
     "peerDependencies": {
-        "mobservable": "^0.7.0",
-        "mobservable-react": "^0.2.0"
+        "mobservable": "^1.0.0",
+        "mobservable-react": "^1.0.0"
     },
     "devDependencies": {
         "webpack": "^1.12.0"
