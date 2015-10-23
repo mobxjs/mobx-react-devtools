@@ -17,13 +17,5 @@ module.exports = {
     externals: {
         "mobservable-react": "mobservable-react",
         "mobservable": "mobservable"
-    },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-              screw_ie8: true,
-              warnings: false
-            }
-        })
-    ]
+    }
 }

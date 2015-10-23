@@ -10,6 +10,10 @@
 	padding-right: 2px;
 }
 
+.mobservable-devtools-selection-highlight {
+	outline: 12px solid rgba(128,128, 255, 0.5);
+}
+
 .mobservable-devtools-render-highlight-cheap {
 	background: rgb(182,218,146) !important;
 }
@@ -26,4 +30,36 @@
 	position: fixed;
 	top:0px;
 	right:20px;
+}
+
+.mobservable-dependency-graph {
+	position: absolute;
+    top: 20px;
+    height: calc(100% - 40px);
+    left: 20px;
+    border-radius: 4px;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.mobservable-dependency-graph svg {
+    background: white;
+	width: 400px;
+}
+
+.mobservable-dependency-graph rect {
+	fill: white;
+	stroke: #333;
+	stroke-width: 2px;
+}
+
+.mobservable-dependency-graph text {
+	fill: #333;
+	transform: translate(15px, 25px);
+}
+
+.mobservable-dependency-graph path {
+	stroke: #333;
+	stroke-width: 2px;
+	fill: none;
 }

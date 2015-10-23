@@ -8,7 +8,7 @@
         "url": "https://github.com/mweststrate/mobservable-react-devtools.git"
     },
     "scripts": {
-        "build": "./node_modules/webpack/bin/webpack.js",
+        "build": "webpack",
         "prepublish": "npm run build"
     },
     "author": "Michel Weststrate",
@@ -19,7 +19,7 @@
     "homepage": "https://mweststrate.github.io/mobservable",
     "peerDependencies": {
         "mobservable": "^1.0.0",
-        "mobservable-react": "^1.0.0"
+        "mobservable-react": "^1.0.3"
     },
     "devDependencies": {
         "webpack": "^1.12.0"

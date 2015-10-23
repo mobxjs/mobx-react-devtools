@@ -5,7 +5,8 @@ var mobservable = require('mobservable');
 
 var byNodeRegistery = mobservableReact.componentByNodeRegistery;
 var highlightRegistery = new WeakMap();
-var showRendering = true;
+
+var showRenderings = false;
 
 mobservableReact.trackComponents();
 
@@ -25,7 +26,7 @@ function destroyHighlight(component) {
 }
 
 mobservableReact.renderReporter.on(function(report) {
-	if (!showRendering)
+	if (!showRenderings)
 		return;
 
 	var node = report.node;
@@ -53,72 +54,133 @@ mobservableReact.renderReporter.on(function(report) {
 	}
 });
 
-$(document.body).mousemove(function(e) {
-	var target = e.target;
-	var component = byNodeRegistery.get(target);
-	if (component) {
-		$(target).css({
-			'outline' : '2px solid red'
-		});
-	}
-})
+var activeDomNode = null;
+var selectionActive = true;
+var inSelectorMode = false;
 
-function toggleShowRenderings() {
-	// TODO:change button state
-	showRendering = !showRendering;
-	if (!showRendering) {
-		$(".render-highlight").remove();
-		highlightRegistery = new WeakMap();
+function highlightHoveredComponent(target) {
+	if (activeDomNode)
+		$(activeDomNode).removeClass("mobservable-devtools-selection-highlight");
+	activeDomNode = target;
+	var component = byNodeRegistery.get(activeDomNode);
+	if (component) {
+		$(activeDomNode).addClass("mobservable-devtools-selection-highlight");
 	}
 }
+$(document.body).mousemove(function(e) {
+	if (inSelectorMode) {
+		highlightHoveredComponent(e.target);
+	}
+});
 
-function showDependencies() {
-	setTimeout(function() {
-		var handler = $(document.body).one('click', function(e) {
-			var target = e.target;
-			var elem, component;
-			while(target) {
-				elem = $(target).closest("[data-reactid]")[0];
-				if (!elem) {
-					console.log("No react component found");
-					return;
-				}
-				component = byNodeRegistery.get(elem);
-				if (component)
-					break;
-				target = target.parentNode;
-			}
-			$(target).css("outline", "2px solid red");
-			var dependencyTree = mobservable.extras.getDependencyTree(component);
+$(document.body).click(function(e) {
+	if (inSelectorMode) {
+		e.stopPropagation();
+		e.preventDefault();
+		highlightHoveredComponent(e.target);
+		inSelectorMode = false;
+		selectionActive = true;
+		showDependencies(findComponent(activeDomNode));
+	}
+});
 
-			var transformTree = function(tree) {
-				var res = {};
-				res[tree.name] = !tree.dependencies ? true : tree.dependencies.map(transformTree);
-				return res;
-			};
-			var transformedTree = transformTree(dependencyTree);
-			console.dir(transformedTree);
+function toggleSelectorEnabled(e) {
+	inSelectorMode = !inSelectorMode;
+	selectionActive = false;
+	if (!inSelectorMode && activeDomNode)
+		$(activeDomNode).removeClass("mobservable-devtools-selection-highlight");
+	e.stopPropagation();
+}
 
-			/*var graph = $("<div></div>")
-				.addClass("mobservable-dependency-graph")
-				.appendTo(document.body)
-				//.click(() => graph.remove());
+function toggleShowRenderings(e) {
+	showRenderings = !showRenderings;
+	if (!showRenderings) {
+		$(".mobservable-devtools-render-highlight").remove();
+		highlightRegistery = new WeakMap();
+	}
+	e.stopPropagation();
+}
 
-				render();
-			*/
+function findComponent(target) {
+	var elem, component;
+	while(target) {
+		elem = $(target).closest("[data-reactid]")[0];
+		if (!elem) {
+			console.log("No react component found");
+			return;
+		}
+		component = byNodeRegistery.get(elem);
+		if (component)
+			break;
+		target = target.parentNode;
+	}
+	return component;
+}
 
-			console.dir(dependencyTree);
+function showDependencies(component) {
+	if (!component)
+		return;
+	var dependencyTree = mobservable.extras.getDependencyTree(component.render);
+	console.dir(dependencyTree);
+
+	var html = [];
+	var height = renderTree(html, dependencyTree, 20, 20);
+
+	// TODO: deduplicate
+
+	console.log(html.join(""));
+
+	var graph = $("<div></div>")
+		.addClass("mobservable-dependency-graph")
+		.appendTo(document.body)
+		.html("<svg height='" + (height + 40) + "'>" + html.join("") + "</svg>")
+		.click(function() {
+			graph.remove();
 		});
-	}, 1);
+
+
+}
+
+var BOXH = 40;
+var HBOXH = 0.5 * BOXH;
+
+function box(x, y, caption) {
+	return ["<rect x='", x, "' y='", y, "' height='", BOXH, "' width='", 20 + caption.length * 10, "' class='mobservable-devtools-depbox'></rect>",
+		"<text x='", x, "' y='", y, "'>", caption, "</text>"
+	].join("");
+}
+
+function line(x1, y1, x2, y2, x3, y3) {
+	return ["<path d='M", x1, " ", y1, " L", x2, " ", y2, " L", x3, " ", y3, "'/>"].join("");
+}
+
+function renderTree(html, tree, basex, basey) {
+	var height = BOXH + HBOXH;
+	html.push(box(basex, basey, tree.name));
+
+	if (tree.dependencies) {
+		tree.dependencies.forEach(function(child) {
+			html.push(line(
+				basex + HBOXH, basey + BOXH,
+				basex + HBOXH, basey + height + HBOXH,
+				basex + BOXH, basey + height + HBOXH));
+			height += renderTree(html, child, basex + BOXH, basey + height);
+
+		});
+	}
+	return height;
 }
 
 function renderToolbar() {
-	var wrapper = $("<div></div>").addClass("mobservable-devtools-wrapper");
+	var wrapper = $("<div>Mobservable Devtools</div>").addClass("mobservable-devtools-wrapper");
 	var toggleRendering = $("<button></button")
 		.text("Show renderings")
 		.on('click', toggleShowRenderings)
 		.appendTo(wrapper);
-
+	var toggleSelector = $("<button></button")
+		.text("Select component")
+		.on('click', toggleSelectorEnabled)
+		.appendTo(wrapper);
 	var toggleDepTree = $("<button></button")
 		.text("Show dependency tree")
 		.on('click', showDependencies)
