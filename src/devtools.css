@@ -1,35 +1,62 @@
 .mobservable-devtools-render-highlight {
-	position: absolute;
-	z-index: 10000;
-	background-color: #9696FF;
-	color:black;
-	font-size: 7pt;
-	width: 70px;
-	height: 20px;
-	text-align: right;
-	padding-right: 2px;
+    position: absolute;
+    z-index: 10000;
+    color: black;
+    font-size: 7pt;
+    padding: 2px;
+    pointer-events: none;
+    text-shadow: white 1px 1px 0px;
+    min-height: 12px;
+    min-width: 60px;
+	border: 10px solid transparent;
+}
+
+.mobservable-devtools-render-highlight-cheap {
+	border-color: rgb(182,218,146) !important;
+}
+
+.mobservable-devtools-render-highlight-ok {
+	border-color: rgb(228,195,66) !important;
+}
+
+.mobservable-devtools-render-highlight-expensive {
+	border-color: rgb(228,171,171) !important;
 }
 
 .mobservable-devtools-selection-highlight {
 	outline: 12px solid rgba(128,128, 255, 0.5);
 }
 
-.mobservable-devtools-render-highlight-cheap {
-	background: rgb(182,218,146) !important;
-}
-
-.mobservable-devtools-render-highlight-ok {
-	background: rgb(228,195,66) !important;
-}
-
-.mobservable-devtools-render-highlight-expensive {
-	background: rgb(228,171,171) !important;
-}
-
 .mobservable-devtools-wrapper {
 	position: fixed;
 	top:0px;
 	right:20px;
+	background-color: #555555;
+	padding: 4px 4px 4px 20px;
+	color: white;
+	font-family: monospace;
+	border-radius: 4px;
+	box-shadow: #ccc 2px 2px 2px;
+}
+
+.mobservable-devtools-wrapper button {
+	background-color: #d7d7d7;
+	font-size: 10pt;
+	margin-left: 8px;
+	border: none;
+	border-radius: 4px;
+	padding: 4px 8px;
+	cursor: pointer;
+}
+
+.mobservable-devtools-wrapper button:hover {
+	background-color: #76ca02;
+}
+
+.mobservable-devtools-wrapper button.active {
+	background-color: #0595db;
+	color: white;
+	transform: translate(2px, 2px);
 }
 
 .mobservable-dependency-graph {
@@ -55,7 +82,9 @@
 
 .mobservable-dependency-graph text {
 	fill: #333;
-	transform: translate(15px, 25px);
+	font-family: monospace;
+    font-size: 12px;
+	transform: translate(10px, 20px);
 }
 
 .mobservable-dependency-graph path {
