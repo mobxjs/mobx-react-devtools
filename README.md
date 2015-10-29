@@ -25,4 +25,4 @@ For each component the color indicates roughly how long the coloring took. Rende
 * ~~Be able to turn dev-tools on and off at runtime.~~
 * ~~Select and log dependency tree of components.~~
 * Visualize observer tree values
-* Be able to enable state change tracking from the extras module
+* ~~Be able to enable state change tracking from the extras module~~

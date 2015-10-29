@@ -3,6 +3,8 @@ var $ = require('jquery');
 var mobservableReact = require('mobservable-react');
 var mobservable = require('mobservable');
 
+/** MWE: yup, it's a mess in here. Feel free to tidy up and PR :) */
+
 var byNodeRegistery = mobservableReact.componentByNodeRegistery;
 var highlightRegistery = new WeakMap();
 
@@ -107,6 +109,18 @@ function toggleShowRenderings(e) {
 	e.stopPropagation();
 }
 
+var logListenerDisposer;
+function toggleLogEnabled(e) {
+	if (logListenerDisposer) {
+		logListenerDisposer();
+		logListenerDisposer = null;
+	} else { 
+		logListenerDisposer = mobservable.extras.trackTransitions();
+	}
+	$('#mobservable-devtools-btn-log').toggleClass("active");
+	e.stopPropagation();
+}
+
 function findComponent(target) {
 	var elem, component;
 	while(target) {
@@ -128,14 +142,12 @@ function showDependencies(component) {
 		return;
 	var dependencyTree = mobservable.extras.getDependencyTree(component.render);
 	dependencyTree.name = component.displayName || component.name || (component.constructor && component.constructor.name) || dependencyTree.name;
+
 	console.dir(dependencyTree);
 
 	var html = [];
+	deduplicateDependencies(dependencyTree);
 	var height = renderTree(html, dependencyTree, 20, 20);
-
-	// TODO: deduplicate
-
-	console.log(html.join(""));
 
 	var graph = $("<div></div>")
 		.addClass("mobservable-dependency-graph")
@@ -144,8 +156,22 @@ function showDependencies(component) {
 		.click(function() {
 			graph.remove();
 		});
+}
 
-
+function deduplicateDependencies(depTree) {
+	if (!depTree.dependencies)
+		return;
+	for(var i = depTree.dependencies.length -1; i >= 0; i--) {
+		var name = depTree.dependencies[i].name;
+		for(var i2 = i - 1; i2 >= 0; i2--) {
+			if (depTree.dependencies[i2].name === name) {
+				depTree.dependencies[i2].dependencies = [].concat(depTree.dependencies[i2].dependencies || [], depTree.dependencies[i].dependencies || []);
+				depTree.dependencies.splice(i, 1);
+				break;
+			}
+		}
+	}
+	depTree.dependencies.forEach(deduplicateDependencies);
 }
 
 var BOXH = 30;
@@ -181,12 +207,16 @@ function renderTree(html, tree, basex, basey) {
 function renderToolbar() {
 	var wrapper = $("<div>Mobservable Devtools&nbsp;&nbsp;</div>").addClass("mobservable-devtools-wrapper");
 	$("<button id='mobservable-devtools-btn-updates' title='Highlight components whenever they are re-rendered'></button")
-		.text("Show component updates")
+		.text("Show updates")
 		.on('click', toggleShowRenderings)
 		.appendTo(wrapper);
 	$("<button id='mobservable-devtools-btn-deptree' title='Select a component to show its dependency tree'></button")
-		.text("Select component")
+		.text("Show dependency tree")
 		.on('click', toggleSelectorEnabled)
+		.appendTo(wrapper);
+	$("<button id='mobservable-devtools-btn-log' title='Log all changes to the console'></button")
+		.text("Enable log")
+		.on('click', toggleLogEnabled)
 		.appendTo(wrapper);
 	wrapper.appendTo(document.body);
 }

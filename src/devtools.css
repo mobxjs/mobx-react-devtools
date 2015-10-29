@@ -56,7 +56,7 @@
 .mobservable-devtools-wrapper button.active {
 	background-color: #0595db;
 	color: white;
-	transform: translate(2px, 2px);
+	transform: translate(1px, 1px);
 }
 
 .mobservable-dependency-graph {
