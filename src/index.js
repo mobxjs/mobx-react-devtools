@@ -141,7 +141,6 @@ function showDependencies(component) {
 	if (!component)
 		return;
 	var dependencyTree = mobservable.extras.getDependencyTree(component.render);
-	dependencyTree.name = component.displayName || component.name || (component.constructor && component.constructor.name) || dependencyTree.name;
 
 	console.dir(dependencyTree);
 
