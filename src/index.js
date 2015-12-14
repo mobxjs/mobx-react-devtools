@@ -10,6 +10,8 @@ var highlightRegistery = new WeakMap();
 
 var showRenderings = false;
 
+console.log("Starting mobservable-react-devtools...");
+
 mobservableReact.trackComponents();
 
 function getHighlightForComponent(component) {
@@ -218,6 +220,12 @@ function renderToolbar() {
 		.on('click', toggleLogEnabled)
 		.appendTo(wrapper);
 	wrapper.appendTo(document.body);
+	
+	console.log("Initialized mobservable-react-devtools.");
+	setTimeout(function() {
+		if ($(".mobservable-devtools-wrapper").length === 0)
+			console.error("Initalized mobservable-react-devtools, but the toolbar has been removed from the DOM. Was React mounted on document.body?");
+	}, 500);
 }
 
 renderToolbar();
