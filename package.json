@@ -1,6 +1,6 @@
 {
     "name": "mobservable-react-devtools",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "description": "Dev-tools for Mobservable and React",
     "main": "index.js",
     "repository": {
