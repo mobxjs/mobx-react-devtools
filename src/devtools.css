@@ -1,6 +1,6 @@
 .mobservable-devtools-render-highlight {
     position: absolute;
-    z-index: 10000;
+    z-index: 64998;
     color: black;
     font-size: 7pt;
     padding: 2px;
@@ -37,6 +37,7 @@
 	font-family: monospace;
 	border-radius: 4px;
 	box-shadow: #ccc 2px 2px 2px;
+	z-index: 65000;
 }
 
 .mobservable-devtools-wrapper button {
@@ -65,7 +66,7 @@
     height: calc(100% - 40px);
     left: 20px;
     border-radius: 4px;
-    z-index: 1000;
+    z-index: 64999;
     overflow: auto;
 }
 
