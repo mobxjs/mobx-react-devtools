@@ -74,23 +74,26 @@ function highlightHoveredComponent(target) {
 		$(activeDomNode).addClass("mobservable-devtools-selection-highlight");
 	}
 }
-$(document.body).mousemove(function(e) {
-	if (inSelectorMode) {
-		highlightHoveredComponent(e.target);
-	}
-});
 
-$(document.body).click(function(e) {
-	if (inSelectorMode) {
-		e.stopPropagation();
-		e.preventDefault();
-		highlightHoveredComponent(e.target);
-		inSelectorMode = false;
-		selectionActive = true;
-		$('#mobservable-devtools-btn-deptree').toggleClass("active", false);		
-		showDependencies(findComponent(activeDomNode));
-	}
-});
+function attachBodyEvents() {
+	$(document.body).mousemove(function(e) {
+		if (inSelectorMode) {
+			highlightHoveredComponent(e.target);
+		}
+	});
+	
+	$(document.body).click(function(e) {
+		if (inSelectorMode) {
+			e.stopPropagation();
+			e.preventDefault();
+			highlightHoveredComponent(e.target);
+			inSelectorMode = false;
+			selectionActive = true;
+			$('#mobservable-devtools-btn-deptree').toggleClass("active", false);		
+			showDependencies(findComponent(activeDomNode));
+		}
+	});
+}
 
 function toggleSelectorEnabled(e) {
 	inSelectorMode = !inSelectorMode;
@@ -228,4 +231,7 @@ function renderToolbar() {
 	}, 500);
 }
 
-renderToolbar();
+$(function() {
+	renderToolbar();
+	attachBodyEvents();
+});
