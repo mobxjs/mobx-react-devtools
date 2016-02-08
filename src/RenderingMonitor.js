@@ -40,7 +40,8 @@ export default class RenderingMonitor {
 
           if (this.boxesList.indexOf(box) === -1) this.boxesList = this.boxesList.concat([box]);
           this.handleUpdate();
-          setTimeout(() => this.removeBox(report.node, true), hightlightTimeout);
+          if (box._timeout) clearTimeout(box._timeout);
+          box._timeout = setTimeout(() => this.removeBox(report.node, true), hightlightTimeout);
           return;
 
         case 'destroy':
