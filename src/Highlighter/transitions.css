@@ -1,0 +1,17 @@
+:local .enter {
+    opacity: 0;
+}
+
+:local .enterActive {
+    opacity: 1;
+    transition: opacity 50ms ease-in;
+}
+
+:local .leave {
+    opacity: 1;
+}
+
+:local .leaveActive {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}

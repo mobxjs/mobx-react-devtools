@@ -8,7 +8,26 @@
 
 ## Usage
 
-Somewhere in your application; `require("mobservable-react-devtools");`.
+Somewhere in your application, create a DevTools component:
+
+```jsx
+import DevTools from 'mobservable-react-devtools';
+
+class MyApp extends React.Component {
+  render() {
+    return (
+      <div>
+        ...
+        <DevTools />;
+      </div>
+    );
+  }
+}
+```
+
+Supported props:
+* `hightlightTimeout` — number, default: 1500.
+
 
 From there on, after each rendering a reactive components logs the following three metrics:
 1. Number of times the component did render so far.
