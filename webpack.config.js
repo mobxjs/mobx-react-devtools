@@ -28,7 +28,9 @@ module.exports = {
   externals: {
     'mobservable-react': 'mobservable-react',
     react: 'react',
-    'react-addons-css-transition-group': 'react-addons-css-transition-group',
+    // 'react-addons-css-transition-group': 'react-addons-css-transition-group',
+    // ^^^ vvv --- since react-addons-css-transition-group is just an alias package, avoid an additonal peer dependency by just referring to the actual react implementation
+    'react-addons-css-transition-group': 'react/lib/ReactCSSTransitionGroup',
     mobservable: 'mobservable'
   },
   plugins: [
