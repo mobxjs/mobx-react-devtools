@@ -1,6 +1,6 @@
 {
     "name": "mobservable-react-devtools",
-    "version": "3.0.1",
+    "version": "4.0.0",
     "description": "Dev-tools for Mobservable and React",
     "main": "index.js",
     "repository": {
@@ -19,8 +19,9 @@
     "homepage": "https://mweststrate.github.io/mobservable",
     "peerDependencies": {
         "react": "^0.14.7",
-        "mobservable": "^1.0.0",
-        "mobservable-react": "^2.0.0"
+        "react-dom": "^0.14.7",
+        "mobservable": "^2.0.0",
+        "mobservable-react": "^3.0.0"
     },
     "devDependencies": {
         "babel": "^6.5.1",
