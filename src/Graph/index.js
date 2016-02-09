@@ -13,13 +13,13 @@ export default class Graph extends Component {
 
   handleClose = () => this.props.onClose();
 
-  renderTree({ name, dependencies }) {
+  renderTreeItem({ name, dependencies }) {
     return (
       <div className={css.item}>
         <span className={classNames(css.box)}>{name}</span>
         {dependencies &&
           <div className={css.tree}>
-            {dependencies.map(dependency => this.renderTree(dependency))}
+            {dependencies.map(dependency => this.renderTreeItem(dependency))}
           </div>
         }
       </div>
@@ -33,9 +33,9 @@ export default class Graph extends Component {
         {dependencyTree &&
           <div className={css.graph}>
             <span className={css.close} onClick={this.handleClose} />
-            <ul className={css.tree}>
-              {this.renderTree(dependencyTree)}
-            </ul>
+            <div className={css.tree}>
+              {this.renderTreeItem(dependencyTree)}
+            </div>
           </div>
         }
       </ModalContainer>
