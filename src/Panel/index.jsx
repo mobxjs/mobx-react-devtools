@@ -34,14 +34,17 @@ export default class Panel extends Component {
            />
            */}
           <button
+            title="Visualize component re-renders"
             className={classNames(css.button, css.buttonUpdates, { [css.active]: updatesEnabled })}
             onClick={onToggleUpdates}
           />
           <button
+            title="Select a component and show it's dependency tree"
             className={classNames(css.button, css.buttonGraph, { [css.active]: graphEnabled })}
             onClick={onToggleGraph}
           />
           <button
+            title="Log all Mobservable state changes and reactions to the browser console (use F12 to show / hide the console)" 
             className={classNames(css.button, css.buttonLog, { [css.active]: logEnabled })}
             onClick={onToggleLog}
           />

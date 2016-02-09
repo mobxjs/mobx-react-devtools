@@ -43,6 +43,7 @@
     width: 26px;
     margin: 0 10px;
     cursor: pointer;
+    border: none;
 }
 
 :local(.button):hover {
