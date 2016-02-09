@@ -1,38 +1,48 @@
 {
-    "name": "mobservable-react-devtools",
-    "version": "2.0.5",
-    "description": "Dev-tools for Mobservable and React",
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/mweststrate/mobservable-react-devtools.git"
-    },
-    "scripts": {
-        "build": "webpack",
-        "prepublish": "npm run build"
-    },
-    "author": "Michel Weststrate",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/mweststrate/mobservable/issues"
-    },
-    "homepage": "https://mweststrate.github.io/mobservable",
-    "peerDependencies": {
-        "mobservable": "^1.0.0",
-        "mobservable-react": "^2.0.0"
-    },
-    "devDependencies": {
-        "webpack": "^1.12.0",
-        "style-loader": "^0.12.3",
-        "css-loader": "^0.16.0",
-        "jquery": "^2.1.4"
-    },
-    "keywords": [
-        "mobservable",
-        "react-component",
-        "react",
-        "reactjs",
-        "reactive",
-        "devtools"
-    ]
+  "name": "mobservable-react-devtools",
+  "version": "3.0.0",
+  "description": "Dev-tools for Mobservable and React",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mweststrate/mobservable-react-devtools.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "prepublish": "npm run build"
+  },
+  "author": "Michel Weststrate",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mweststrate/mobservable/issues"
+  },
+  "homepage": "https://mweststrate.github.io/mobservable",
+  "peerDependencies": {
+    "react": "^0.14.7",
+    "mobservable": "^1.0.0",
+    "mobservable-react": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.1",
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "babel-plugin-transform-class-properties": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "classnames": "^2.2.3",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "react-addons-css-transition-group": "^0.14.7",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.0"
+  },
+  "keywords": [
+    "mobservable",
+    "react-component",
+    "react",
+    "reactjs",
+    "reactive",
+    "devtools"
+  ]
 }

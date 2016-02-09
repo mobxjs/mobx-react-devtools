@@ -1,0 +1,67 @@
+:local .graph {
+    background: white;
+    padding: 40px;
+}
+
+:local .close::after {
+    content: '×';
+}
+:local .close {
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 36px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    line-height: 34px;
+    text-align: center;
+    cursor: pointer;
+}
+
+:local .close:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+:local .tree {
+    margin-left: 20px;
+}
+
+:local .treeBox {
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    position: relative;
+    margin-top: 18px;
+}
+
+:local .treeBox.root {
+    font-weight: bold;
+}
+
+:local .tree .treeBox::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 50%;
+    border-width: 0 0 2px 2px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: -20px;
+    left: -12px;
+    padding-top: 20px;
+}
+
+:local .tree:not(:last-child) .treeBox::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 50%;
+    border-width: 0 0 0 2px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    margin-top: 2px;
+}

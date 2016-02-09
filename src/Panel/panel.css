@@ -1,0 +1,79 @@
+:local(.panel) {
+    position: fixed;
+    top: 0px;
+    right: 20px;
+    height: 26px;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.8);
+    border-radius: 0 0 2px 2px;
+    border-style: solid;
+    border-width: 0 1px 1px;
+    border-color: rgba(0, 0, 0, 0.1);
+    z-index: 65000;
+    font-family: Helvetica, sans-serif;
+    display: flex;
+    padding: 0 5px;
+}
+
+:local(.logo) {
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    text-decoration: none;
+}
+
+:local(.logo)::before {
+    content: "]v[";
+    display: block;
+    background-color: #B9B9B9;
+    font-size: 11px;
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 3px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+:local(.button) {
+    opacity: 0.45;
+    background: transparent none center / 16px 16px no-repeat;
+    width: 26px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+}
+
+:local(.button):hover {
+    opacity: 0.7;
+}
+
+:local(.button.active) {
+    opacity: 1;
+}
+
+:local(.buttonLog) {
+    background-image: url('./log.svg');
+}
+
+:local(.buttonLog.active) {
+    background-image: url('./log-active.svg');
+}
+
+:local(.buttonUpdates) {
+    background-image: url('./updates.svg');
+}
+
+:local(.buttonUpdates.active) {
+    background-image: url('./updates-active.svg');
+}
+
+:local(.buttonGraph) {
+    background-image: url('./graph.svg');
+}
+
+:local(.buttonGraph.active) {
+    background-image: url('./graph-active.svg');
+}
