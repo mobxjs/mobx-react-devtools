@@ -13,42 +13,31 @@ export default class Graph extends Component {
 
   handleClose = () => this.props.onClose();
 
-  renderBox(name, isRoot) {
+  renderTree({ name, dependencies }) {
     return (
-      <div className={classNames(css.treeBox, { [css.root]: isRoot })}>
-        {name}
+      <div className={css.item}>
+        <span className={classNames(css.box)}>{name}</span>
+        {dependencies &&
+          <div className={css.tree}>
+            {dependencies.map(dependency => this.renderTree(dependency))}
+          </div>
+        }
       </div>
     );
   }
 
-  renderTree(dependencies) {
-    return dependencies && dependencies.map(dependency =>
-        <div key={dependency.id} className={css.tree}>
-          {this.renderBox(dependency.name)}
-          {this.renderTree(dependency.dependencies)}
-        </div>
-      );
-  }
-
-  renderGraph() {
-    const { dependencyTree } = this.props;
-    if (dependencyTree) {
-      return (
-        <div className={css.graph}>
-          <span className={css.close} onClick={this.handleClose} />
-          {this.renderBox(dependencyTree.name, true)}
-          {this.renderTree(dependencyTree.dependencies)}
-        </div>
-      );
-    }
-
-    return undefined;
-  }
-
   render() {
+    const { dependencyTree } = this.props;
     return (
       <ModalContainer onOverlayClick={this.handleClose}>
-        {this.renderGraph()}
+        {dependencyTree &&
+          <div className={css.graph}>
+            <span className={css.close} onClick={this.handleClose} />
+            <ul className={css.tree}>
+              {this.renderTree(dependencyTree)}
+            </ul>
+          </div>
+        }
       </ModalContainer>
     );
   }

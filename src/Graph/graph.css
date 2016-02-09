@@ -23,45 +23,57 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
-:local .tree {
-    margin-left: 20px;
-}
 
-:local .treeBox {
-    border: 2px solid rgba(0, 0, 0, 0.8);
-    padding: 10px;
+/* TREE */
+
+:local .tree,
+:local .item {
     position: relative;
-    margin-top: 18px;
 }
 
-:local .treeBox.root {
+:local .tree {
+    padding-left: 25px;
+}
+
+:local .box {
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+:local .graph > .tree > .item > .box {
+    font-size: 15px;
     font-weight: bold;
+    padding: 6px 13px;
 }
 
-:local .tree .treeBox::before {
+:local .item::before,
+:local .item::after {
     content: "";
-    display: block;
-    width: 10px;
-    height: 50%;
-    border-width: 0 0 2px 2px;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.8);
     position: absolute;
-    top: -20px;
     left: -12px;
-    padding-top: 20px;
 }
 
-:local .tree:not(:last-child) .treeBox::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 50%;
-    border-width: 0 0 0 2px;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    top: 50%;
-    left: -12px;
-    margin-top: 2px;
+:local .item::before {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    top: 14px;
+    width: 12px;
+    height: 0;
+}
+
+:local .item::after {
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    height: 100%;
+    width: 0px;
+    top: -8px;
+}
+
+:local .graph > .tree > .item::before,
+:local .graph > .tree > .item::after {
+    content: none;
+}
+
+:local .tree > .item:last-child::after {
+    height: 23px;
 }
