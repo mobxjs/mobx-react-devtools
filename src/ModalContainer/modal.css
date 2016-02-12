@@ -19,6 +19,6 @@
 :local .modal {
   position: relative;
   width: auto;
-  margin: 10%;
+  margin: 5% 10%;
   z-index: 1060;
 }
