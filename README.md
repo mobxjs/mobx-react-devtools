@@ -1,17 +1,17 @@
-# mobservable-react-devtools
+# mobx-react-devtools
 
-![Mobservable devtools](devtools.gif)
+![MobX devtools](devtools.gif)
 
 ## Installation
 
-`npm install mobservable-react-devtools --save-dev`
+`npm install mobx-react-devtools --save-dev`
 
 ## Usage
 
 Somewhere in your application, create a DevTools component:
 
 ```jsx
-import DevTools from 'mobservable-react-devtools';
+import DevTools from 'mobx-react-devtools';
 
 class MyApp extends React.Component {
   render() {

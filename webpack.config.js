@@ -5,7 +5,7 @@ module.exports = {
   hot: false,
   output: {
     libraryTarget: 'umd',
-    library: 'mobservableDevtools',
+    library: 'mobxDevtools',
     path: __dirname,
     filename: 'index.js'
   },
@@ -26,12 +26,12 @@ module.exports = {
     }]
   },
   externals: {
-    'mobservable-react': 'mobservable-react',
+    'mobx-react': 'mobx-react',
     react: 'react',
     // 'react-addons-css-transition-group': 'react-addons-css-transition-group',
     // ^^^ vvv --- since react-addons-css-transition-group is just an alias package, avoid an additonal peer dependency by just referring to the actual react implementation
     'react-addons-css-transition-group': 'react/lib/ReactCSSTransitionGroup',
-    mobservable: 'mobservable'
+    mobx: 'mobx'
   },
   plugins: [
     new webpack.DefinePlugin({

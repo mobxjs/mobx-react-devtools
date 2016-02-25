@@ -15,7 +15,7 @@ export default class Graph extends Component {
 
   renderTreeItem({ name, dependencies }) {
     return (
-      <div className={css.item}>
+      <div className={css.item} key={name}>
         <span className={classNames(css.box)}>{name}</span>
         {dependencies &&
           <div className={css.tree}>

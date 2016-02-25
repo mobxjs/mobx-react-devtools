@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import RenderingMonitor from './RenderingMonitor';
-import mobservable from 'mobservable';
-import mobservableReact from 'mobservable-react';
+import mobx from 'mobx';
+import mobxReact from 'mobx-react';
 import deduplicateDependencies from './deduplicateDependencies';
 
 import Panel from './Panel';
 import Highlighter from './Highlighter';
 import Graph from './Graph';
 
-const LS_UPDATES_KEY = 'mobservable-react-devtool__updatesEnabled';
-const LS_LOG_KEY = 'mobservable-react-devtool__logEnabled';
+const LS_UPDATES_KEY = 'mobx-react-devtool__updatesEnabled';
+const LS_LOG_KEY = 'mobx-react-devtool__logEnabled';
 
 export default class DevTool extends Component {
 
@@ -32,7 +32,7 @@ export default class DevTool extends Component {
     const { hightlightTimeout } = this.props;
 
     /* Start magic */
-    mobservableReact.trackComponents();
+    mobxReact.trackComponents();
 
     this.renderingMonitor = new RenderingMonitor({
       hightlightTimeout,
@@ -91,7 +91,7 @@ export default class DevTool extends Component {
       if (component) {
         e.stopPropagation();
         e.preventDefault();
-        const dependencyTree = mobservable.extras.getDependencyTree(component.render);
+        const dependencyTree = mobx.extras.getDependencyTree(component.render.$mobx);
         deduplicateDependencies(dependencyTree);
         this.setState({
           dependencyTree,
@@ -106,7 +106,7 @@ export default class DevTool extends Component {
     let node = target;
     let component;
     while(node) {
-      component = mobservableReact.componentByNodeRegistery.get(node);
+      component = mobxReact.componentByNodeRegistery.get(node);
       if (component) return { component, node };
       node = node.parentNode;
     }
@@ -139,7 +139,7 @@ export default class DevTool extends Component {
     this.setState({ logEnabled });
 
     if (logEnabled) {
-      this.logListenerDisposer = mobservable.extras.trackTransitions();
+      this.logListenerDisposer = mobx.extras.trackTransitions();
       window.localStorage.setItem(LS_LOG_KEY, 'YES');
     } else {
       window.localStorage.removeItem(LS_LOG_KEY);
