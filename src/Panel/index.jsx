@@ -28,7 +28,7 @@ export default class Panel extends Component {
         <div className={css.panel}>
           {/*
            <a
-           href="https://mweststrate.github.io/mobservable/"
+           href="https://mobxjs.github.io/mobx/"
            target="_blank"
            className={css.logo}
            />
@@ -44,7 +44,7 @@ export default class Panel extends Component {
             onClick={onToggleGraph}
           />
           <button
-            title="Log all Mobservable state changes and reactions to the browser console (use F12 to show / hide the console)" 
+            title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console)" 
             className={classNames(css.button, css.buttonLog, { [css.active]: logEnabled })}
             onClick={onToggleLog}
           />

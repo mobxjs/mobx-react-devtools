@@ -1,5 +1,5 @@
-import mobservable from 'mobservable';
-import mobservableReact from 'mobservable-react';
+import mobx from 'mobx';
+import mobxReact from 'mobx-react';
 
 const getCost = renderTime => {
   switch(true) {
@@ -18,7 +18,7 @@ export default class RenderingMonitor {
 
     this.handleUpdate = onUpdate;
 
-    this._disposeRenderReporter = mobservableReact.renderReporter.on(report => {
+    this._disposeRenderReporter = mobxReact.renderReporter.on(report => {
       if (shouldReport() !== true) return;
       switch (report.event) {
 
