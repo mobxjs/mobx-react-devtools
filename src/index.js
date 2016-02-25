@@ -91,7 +91,7 @@ export default class DevTool extends Component {
       if (component) {
         e.stopPropagation();
         e.preventDefault();
-        const dependencyTree = mobservable.extras.getDependencyTree(component.render);
+        const dependencyTree = mobservable.extras.getDependencyTree(component.render.$mobservable);
         deduplicateDependencies(dependencyTree);
         this.setState({
           dependencyTree,
