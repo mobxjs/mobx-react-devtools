@@ -24,7 +24,7 @@ export default class Panel extends Component {
       onToggleGraph,
     } = this.props;
 
-    let styles;
+    let styles = {};
     if (position) {
       styles.top = position.top;
       styles.right = position.right;
