@@ -46,3 +46,10 @@ For each component the color indicates roughly how long the coloring took. Rende
 * ~~Select and log dependency tree of components.~~
 * Visualize observer tree values
 * ~~Be able to enable state change tracking from the extras module~~
+
+## Changelog
+
+4.0.1
+* Added typescript typings (see #6)
+* Use (fix) uglify, by @evoyy
+* Added option to customize the position of the toolbar (by @evoyy)
