@@ -1,7 +1,5 @@
 :local(.panel) {
     position: fixed;
-    top: 0px;
-    right: 20px;
     height: 26px;
     background-color: #fff;
     color: rgba(0, 0, 0, 0.8);

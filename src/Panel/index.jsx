@@ -15,6 +15,7 @@ export default class Panel extends Component {
 
   render() {
     const {
+      position,
       logEnabled,
       updatesEnabled,
       graphEnabled,
@@ -23,9 +24,20 @@ export default class Panel extends Component {
       onToggleGraph,
     } = this.props;
 
+    let styles;
+    if (position) {
+      styles.top = position.top;
+      styles.right = position.right;
+      styles.bottom = position.bottom;
+      styles.left = position.left;
+    } else {
+      styles.top = '0px';
+      styles.right = '20px';
+    }
+
     return (
       <div>
-        <div className={css.panel}>
+        <div className={css.panel} style={styles}>
           {/*
            <a
            href="https://mobxjs.github.io/mobx/"
