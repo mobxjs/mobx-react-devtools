@@ -26,10 +26,8 @@ module.exports = {
     }]
   },
   externals: {
-    'mobx-react': 'mobx-react',
-    react: 'react',
-    // 'react-addons-css-transition-group': 'react-addons-css-transition-group',
-    // ^^^ vvv --- since react-addons-css-transition-group is just an alias package, avoid an additonal peer dependency by just referring to the actual react implementation
+    'mobx-react': 'mobxReact',
+    react: 'React',
     'react-addons-css-transition-group': 'react/lib/ReactCSSTransitionGroup',
     mobx: 'mobx'
   },
