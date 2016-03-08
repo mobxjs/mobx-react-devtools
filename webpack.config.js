@@ -26,9 +26,26 @@ module.exports = {
     }]
   },
   externals: {
-    'mobx-react': 'mobxReact',
-    react: 'React',
-    'react-addons-css-transition-group': 'react/lib/ReactCSSTransitionGroup',
+    'mobx-react': {
+        root: 'mobxReact',
+        commonjs: 'mobx-react',
+        commonjs2: 'mobx-react', 
+        amd: 'mobx-react'        
+    },
+    'react': {
+        root: 'React',
+        commonjs: 'react',
+        commonjs2: 'react',
+        amd: 'react'
+    },
+    // 'react-addons-css-transition-group': 'react-addons-css-transition-group',
+    // ^^^ vvv --- since react-addons-css-transition-group is just an alias package, avoid an additonal peer dependency by just referring to the actual react implementation
+    'react-addons-css-transition-group': {
+        root: 'React.addons.CSSTransitionGroup',
+        commonjs: 'react/lib/ReactCSSTransitionGroup',
+        commonjs2: 'react/lib/ReactCSSTransitionGroup',
+        amd: 'react/lib/ReactCSSTransitionGroup', // is this correct? who uses amd anyway?
+    },        
     mobx: 'mobx'
   },
   plugins: [

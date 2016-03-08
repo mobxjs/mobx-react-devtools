@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactCSSTransitionGroup from '../react-css-transition-group';
 import classNames from 'classnames';
 import transitions from './transitions.css';
 import css from './modal.css';
-
 
 export default class ModalContaner extends Component {
 

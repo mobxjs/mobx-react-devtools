@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactCSSTransitionGroup from '../react-css-transition-group';
 import classNames from 'classnames';
 import css from './hightlighter.css';
 import cssTransitions from './transitions.css';
