@@ -49,7 +49,15 @@ For each component the color indicates roughly how long the coloring took. Rende
 
 ## Changelog
 
+4.0.2
+* Make sure AMD / root imports work (#12)
+* DevTools should now 'work' (not do anything) when used in Isomorphic rendering (#11)
+* Highlighting boxes now show up at the proper coordinates when using complex stacking contexts
+
 4.0.1
 * Added typescript typings (see #6)
 * Use (fix) uglify, by @evoyy
 * Added option to customize the position of the toolbar (by @evoyy)
+
+4.0.0
+* Upgraded to MobX 2.0 / MobX-React 3.0
