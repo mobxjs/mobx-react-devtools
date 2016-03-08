@@ -29,8 +29,8 @@ export default class RenderingMonitor {
           box.type = 'rendering';
           box.y = offset.top;
           box.x = offset.left;
-          box.width = report.node.offsetWidth;
-          box.height = report.node.offsetHeight;
+          box.width = offset.width;
+          box.height = offset.height;
           box.renderInfo = {
             count: box.renderInfo && ++box.renderInfo.count || 1,
             renderTime: report.renderTime,

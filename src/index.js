@@ -53,16 +53,7 @@ export default class DevTool extends Component {
   }
 
   getCoordinates(target) {
-    const maxOffsetParent = (this.containerEl || {}).offsetParent;
-    let node = target;
-    let top = 0;
-    let left = 0;
-    while (node && node !== maxOffsetParent) {
-      top += node.offsetTop || 0;
-      left += node.offsetLeft || 0;
-      node = node.offsetParent;
-    }
-    return { top, left };
+    return target.getBoundingClientRect();
   }
 
   _handleMouseMove = e => {
@@ -77,8 +68,8 @@ export default class DevTool extends Component {
             type: 'hover',
             x: coordinates.left,
             y: coordinates.top,
-            width: node.offsetWidth,
-            height: node.offsetHeight,
+            width: coordinates.width,
+            height: coordinates.height,
           }]
         });
       }
