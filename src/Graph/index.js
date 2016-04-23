@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
 import ModalContainer from '../ModalContainer';
-import css from './graph.css';
+import Radium from 'radium';
+import * as styles from './styles.js';
 
-
-export default class Graph extends Component {
+export default Radium(class Graph extends Component {
 
   static propTypes = {
     dependencyTree: PropTypes.any,
@@ -13,15 +12,19 @@ export default class Graph extends Component {
 
   handleClose = () => this.props.onClose();
 
-  renderTreeItem({ name, dependencies }) {
+  renderTreeItem({ name, dependencies }, isLast, isRoot) {
     return (
-      <div className={css.item} key={name}>
-        <span className={classNames(css.box)}>{name}</span>
+      <div style={styles.item} key={name}>
+        <span style={[styles.box, isRoot && styles.box.root]}>{name}</span>
         {dependencies &&
-          <div className={css.tree}>
-            {dependencies.map(dependency => this.renderTreeItem(dependency))}
+          <div style={styles.tree}>
+            {dependencies.map((dependency, i) =>
+              this.renderTreeItem(dependency, /*isLast:*/i == dependencies.length - 1))
+            }
           </div>
         }
+        {!isRoot && <span style={styles.itemHorisontalDash} />}
+        {!isRoot && <span style={[styles.itemVericalStick, isLast && styles.itemVericalStick.short]} />}
       </div>
     );
   }
@@ -31,14 +34,14 @@ export default class Graph extends Component {
     return (
       <ModalContainer onOverlayClick={this.handleClose}>
         {dependencyTree &&
-          <div className={css.graph}>
-            <span className={css.close} onClick={this.handleClose} />
-            <div className={css.tree}>
-              {this.renderTreeItem(dependencyTree)}
+          <div style={styles.graph}>
+            <span style={styles.close} onClick={this.handleClose}>×</span>
+            <div style={styles.tree}>
+              {this.renderTreeItem(dependencyTree, /*isLast:*/true, /*isRoot:*/true)}
             </div>
           </div>
         }
       </ModalContainer>
     );
   }
-}
+});

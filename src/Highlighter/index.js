@@ -1,10 +1,30 @@
 import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from '../react-css-transition-group';
-import classNames from 'classnames';
-import css from './hightlighter.css';
-import cssTransitions from './transitions.css';
+import Radium, { Style } from 'radium';
+import * as styles from './styles';
 
-export default class Highlighter extends Component {
+class AnimatedBox extends Component {
+
+  static propTypes = {
+    willAppear: PropTypes.function,
+    willLeave: PropTypes.function
+  };
+  static defaultProps = {
+    willAppear: () => {},
+    willLeave: () => {},
+  };
+
+  componentWillAppear(callback) {
+    this.props.willAppear(callback)
+  }
+  componentWillLeave() {
+    this.props.willLeave()
+  }
+  render() {
+    return this.props.children
+  }
+}
+
+export default Radium(class Highlighter extends Component {
 
   static propTypes = {
     boxes: PropTypes.arrayOf(PropTypes.shape({
@@ -19,24 +39,27 @@ export default class Highlighter extends Component {
         totalTime: PropTypes.number.isRequired,
         cost: PropTypes.oneOf(['cheap', 'acceptable', 'expensive']).isRequired,
       }),
+      lifeTime: PropTypes.number.isRequired
     })).isRequired,
   };
 
   renderBox(box) {
     switch (box.type) {
       case 'rendering':
+        let renderingCostStyle = styles.rendering[box.renderInfo.cost] || {};
         return (
           <div
             key={box.id}
-            className={classNames(css.box, css.rendering, css[box.renderInfo.cost])}
-            style={{
+            // A poor man's animation:
+            ref={el => setTimeout(() => { if (el) el.style.opacity = 0; }, box.lifeTime - 500)}
+            style={[styles.box, styles.rendering, renderingCostStyle, {
                 left: box.x,
                 top: box.y,
                 width: box.width,
                 height: box.height,
-              }}
+              }]}
           >
-            <span className={css.text}>
+            <span style={[styles.text, renderingCostStyle.text]}>
               {box.renderInfo.count}x | {box.renderInfo.renderTime} / {box.renderInfo.totalTime} ms
             </span>
           </div>
@@ -46,13 +69,12 @@ export default class Highlighter extends Component {
         return (
           <div
             key={box.id}
-            className={classNames(css.box, css.hover)}
-            style={{
+            style={[styles.box, styles.hover, {
                 left: box.x,
                 top: box.y,
                 width: box.width,
                 height: box.height,
-              }}
+            }]}
           />
         );
 
@@ -63,17 +85,12 @@ export default class Highlighter extends Component {
 
   render() {
     const { boxes } = this.props;
+    const scopeSelector = `mobx-react-devtool-animation-scope`;
 
     return (
       <div>
-        <ReactCSSTransitionGroup
-          transitionName={cssTransitions}
-          transitionEnterTimeout={50}
-          transitionLeaveTimeout={500}
-        >
-          {boxes.map(box => this.renderBox(box))}
-        </ReactCSSTransitionGroup>
+        {boxes.map(box => this.renderBox(box))}
       </div>
     );
   }
-}
+});

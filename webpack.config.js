@@ -19,7 +19,7 @@ module.exports = {
       loader: 'babel'
     }, {
       test: /\.css$/,
-      loader: 'style!css'
+      loader: 'style!css/locals?module'
     }, {
       test: /\.svg$/,
       loader: 'url-loader'
@@ -29,8 +29,8 @@ module.exports = {
     'mobx-react': {
         root: 'mobxReact',
         commonjs: 'mobx-react',
-        commonjs2: 'mobx-react', 
-        amd: 'mobx-react'        
+        commonjs2: 'mobx-react',
+        amd: 'mobx-react'
     },
     'react': {
         root: 'React',
@@ -38,14 +38,6 @@ module.exports = {
         commonjs2: 'react',
         amd: 'react'
     },
-    // 'react-addons-css-transition-group': 'react-addons-css-transition-group',
-    // ^^^ vvv --- since react-addons-css-transition-group is just an alias package, avoid an additonal peer dependency by just referring to the actual react implementation
-    'react-addons-css-transition-group': {
-        root: 'React.addons.CSSTransitionGroup',
-        commonjs: 'react/lib/ReactCSSTransitionGroup',
-        commonjs2: 'react/lib/ReactCSSTransitionGroup',
-        amd: 'react/lib/ReactCSSTransitionGroup', // is this correct? who uses amd anyway?
-    },        
     mobx: 'mobx'
   },
   plugins: [
