@@ -16,10 +16,12 @@ export default class DevTool extends Component {
   static propTypes = {
     hightlightTimeout: PropTypes.number,
     position: PropTypes.object,
+    userAgent: PropTypes.string,
   };
 
   static defaultProps = {
     hightlightTimeout: 1500,
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36',
   };
 
   state = {
