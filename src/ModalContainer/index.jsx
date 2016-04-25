@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from '../react-css-transition-group';
-import classNames from 'classnames';
-import transitions from './transitions.css';
-import css from './modal.css';
+import Radium from 'radium';
+import * as styles from './styles';
 
-export default class ModalContaner extends Component {
+export default Radium(class ModalContaner extends Component {
 
   static propTypes = {
     children: PropTypes.node,
@@ -18,11 +16,11 @@ export default class ModalContaner extends Component {
       // Disapeared
       this.rightOffset = 0;
       html.style.borderRight = null;
-      html.classList.remove(css.htmlWithModal);
+      html.style.overflow = null;
     } else if (!prevProps.children && this.props.children) {
       // Appeared
       const prevTotalWidth = html.offsetWidth;
-      html.classList.add(css.htmlWithModal);
+      html.style.overflow = 'hidden';
       const nextTotalWidth = html.offsetWidth;
       const rightOffset = Math.max(0, nextTotalWidth - prevTotalWidth);
       html.style.borderRight = `${rightOffset}px solid transparent`
@@ -33,29 +31,20 @@ export default class ModalContaner extends Component {
 
   render() {
     const { children, onOverlayClick } = this.props;
+    if (!children) return null;
     return (
-      <ReactCSSTransitionGroup
-        transitionName={transitions}
-        transitionAppear
-        transitionAppearTimeout={100}
-        transitionEnterTimeout={100}
-        transitionLeaveTimeout={100}
+      <div
+        style={styles.overlay}
+        onClick={onOverlayClick}
       >
-        {children &&
-          <div
-            className={css.overlay}
-            onClick={onOverlayClick}
-          >
-            <div
-              key="content"
-              className={classNames(css.modal, transitions.zoom)}
-              onClick={this.stopPropogation}
-            >
-              {children}
-            </div>
-          </div>
-        }
-      </ReactCSSTransitionGroup>
+        <div
+          key="content"
+          style={styles.modal}
+          onClick={this.stopPropogation}
+        >
+          {children}
+        </div>
+      </div>
     );
   }
-}
+});

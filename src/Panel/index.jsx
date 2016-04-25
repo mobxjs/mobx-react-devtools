@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
-import css from './panel.css';
+import Radium from 'radium';
+import * as styles from './styles';
 
-export default class Panel extends Component {
+export default Radium(class Panel extends Component {
 
   static propTypes = {
     logEnabled: PropTypes.bool.isRequired,
@@ -24,7 +24,6 @@ export default class Panel extends Component {
       onToggleGraph,
     } = this.props;
 
-    let styles = {};
     if (position) {
       styles.top = position.top;
       styles.right = position.right;
@@ -37,31 +36,27 @@ export default class Panel extends Component {
 
     return (
       <div>
-        <div className={css.panel} style={styles}>
-          {/*
-           <a
-           href="https://mobxjs.github.io/mobx/"
-           target="_blank"
-           className={css.logo}
-           />
-           */}
+        <div style={Object.assign(styles.panel, styles)}>
           <button
             title="Visualize component re-renders"
-            className={classNames(css.button, css.buttonUpdates, { [css.active]: updatesEnabled })}
+            style={[styles.button, updatesEnabled ? styles.buttonUpdatesActive : styles.buttonUpdates, updatesEnabled && styles.button.active]}
+            key="buttonUpdates"
             onClick={onToggleUpdates}
           />
           <button
             title="Select a component and show it's dependency tree"
-            className={classNames(css.button, css.buttonGraph, { [css.active]: graphEnabled })}
+            style={[styles.button, graphEnabled ? styles.buttonGraphActive : styles.buttonGraph, graphEnabled && styles.button.active]}
+            key="buttonGraph"
             onClick={onToggleGraph}
           />
           <button
-            title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console)" 
-            className={classNames(css.button, css.buttonLog, { [css.active]: logEnabled })}
+            title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console)"
+            style={[styles.button, logEnabled ? styles.buttonLogActive : styles.buttonLog, logEnabled && styles.button.active]}
+            key="buttonLog"
             onClick={onToggleLog}
           />
         </div>
       </div>
     );
   }
-}
+});

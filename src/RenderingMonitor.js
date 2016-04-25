@@ -37,6 +37,7 @@ export default class RenderingMonitor {
             totalTime: report.totalTime,
             cost: getCost(report.renderTime),
           };
+          box.lifeTime = hightlightTimeout;
 
           if (this.boxesList.indexOf(box) === -1) this.boxesList = this.boxesList.concat([box]);
           this.handleUpdate();
