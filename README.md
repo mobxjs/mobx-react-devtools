@@ -49,6 +49,9 @@ For each component the color indicates roughly how long the coloring took. Rende
 
 ## Changelog
 
+4.0.5
+* Added Object.assign polyfill to avoid issues with server side rendering on old node vesions
+
 4.0.2
 * Make sure AMD / root imports work (#12)
 * DevTools should now 'work' (not do anything) when used in Isomorphic rendering (#11)
