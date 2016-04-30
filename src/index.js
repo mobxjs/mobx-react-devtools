@@ -1,3 +1,5 @@
+import ObjectAssign from 'es6-object-assign';
+ObjectAssign.polyfill();
 import React, { Component, PropTypes } from 'react';
 import RenderingMonitor from './RenderingMonitor';
 import mobx from 'mobx';
