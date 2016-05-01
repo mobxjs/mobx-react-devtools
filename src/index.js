@@ -5,6 +5,7 @@ import RenderingMonitor from './RenderingMonitor';
 import mobx from 'mobx';
 import mobxReact from 'mobx-react';
 import deduplicateDependencies from './deduplicateDependencies';
+import {setLogLevel, nextLogLevel} from './changeLogger';
 
 import Panel from './Panel';
 import Highlighter from './Highlighter';
@@ -53,7 +54,13 @@ export default class DevTool extends Component {
       document.body.addEventListener('click', this._handleClick, true);
 
       if (window.localStorage.getItem(LS_UPDATES_KEY) === 'YES') this.handleToggleUpdates();
-      if (window.localStorage.getItem(LS_LOG_KEY) === 'YES') this.handleToggleLog();
+      // TODO: have nicer UI for logLevel!
+      let logLevel = parseInt(window.localStorage.getItem(LS_LOG_KEY), 10);
+      if (isNaN(logLevel)) logLevel = 0;
+      setLogLevel(logLevel);
+      this.setState({
+          logEnabled: logLevel !== 0
+      });
     }
   }
 
@@ -137,19 +144,11 @@ export default class DevTool extends Component {
   };
 
   handleToggleLog = () => {
-    if (this.logListenerDisposer) this.logListenerDisposer();
-    this.logListenerDisposer = undefined;
-
-    const logEnabled = !this.state.logEnabled;
-
-    this.setState({ logEnabled });
-
-    if (logEnabled) {
-      this.logListenerDisposer = mobx.extras.trackTransitions();
-      typeof window !== 'undefined' && window.localStorage.setItem(LS_LOG_KEY, 'YES');
-    } else {
-      typeof window !== 'undefined' && window.localStorage.removeItem(LS_LOG_KEY);
-    }
+    const newLevel = nextLogLevel();
+    this.setState({
+      logEnabled: newLevel !== 0
+    });
+    typeof window !== 'undefined' && window.localStorage.setItem(LS_LOG_KEY, newLevel);
   };
 
   handleCloseGraph = () => {
