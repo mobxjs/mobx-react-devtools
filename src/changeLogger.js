@@ -4,7 +4,8 @@ let logDisposer = null;
 
 export function setLogLevel(newLevel) {
     if (newLevel === true && !logDisposer) {
-        logDisposer = mobx.extras.trackTransitions(logger);
+        console.log("The output of the MobX logger is optimized for Chrome");
+        logDisposer = mobx.spy(logger);
     } else if (newLevel === false && logDisposer) {
         logDisposer();
         logDisposer = null;
@@ -21,10 +22,11 @@ function logger(change) {
         const logNext = change.spyReportStart === true ? group : log;
         switch (change.type) {
             case 'action':
-                // name, target, arguments
+                // name, target, arguments, fn
                 logNext(`%caction '%s' %s`, 'color:blue', change.name, autoWrap("(", getNameForThis(change.target)));
                 log(change.arguments),
-                log({
+                dir({
+                    fn: change.fn,
                     target: change.target
                 });
                 trace();
@@ -33,19 +35,32 @@ function logger(change) {
                 // name, target
                 logNext(`%ctransaction '%s' %s`, 'color:gray', change.name, autoWrap("(", getNameForThis(change.target)));
                 break;
-            case 'reaction':
+            case 'scheduled-reaction':
                 // object
+                logNext(`%cscheduled async reaction '%s'`, 'color:green', observableName(change.object));
+                break;
+            case 'reaction':
+                // object, fn
                 logNext(`%creaction '%s'`, 'color:green', observableName(change.object));
+                dir({
+                    fn: change.fn
+                });
                 trace();
                 break;
             case 'compute':
-                // object, target
-                logNext(`%ccomputed '%s' %s`, 'color:gray', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
+                // object, target, fn
+                group(`%ccomputed '%s' %s`, 'color:gray', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
+                dir({
+                   fn: change.fn,
+                   target: change.target 
+                });
+                groupEnd();
                 break;
             case 'error':
                 // message
                 logNext('%cerror: %s', 'color:red', change.message);
                 trace();
+                closeGroupsOnError();
                 break;
             case 'update':
                 // (array) object, index, newValue, oldValue
@@ -58,7 +73,7 @@ function logger(change) {
                 } else {
                     logNext("updated '%s': %s (was: %s)", observableName(change.object), change.name, formatValue(change.newValue), formatValue(change.oldValue));
                 }
-                console.log({
+                dir({
                     newValue: change.newValue,
                     oldValue: change.oldValue
                 });
@@ -67,7 +82,7 @@ function logger(change) {
             case 'splice':
                 // (array) object, index, added, removed, addedCount, removedCount
                 logNext("spliced '%s': index %d, added %d, removed %d", observableName(change.object), change.index, change.addedCount, change.removedCount);
-                log({
+                dir({
                     added: change.added,
                     removed: change.removed
                 });
@@ -76,7 +91,7 @@ function logger(change) {
             case 'add':
                 // (map, object) object, name, newValue
                 logNext("set '%s.%s': %s", observableName(change.object), change.name, formatValue(change.newValue));
-                log({
+                dir({
                     newValue: change.newValue
                 });
                 trace();
@@ -84,7 +99,7 @@ function logger(change) {
             case 'delete':
                 // (map) object, name, oldValue
                 logNext("removed '%s.%s' (was %s)", observableName(change.object), change.name, formatValue(change.oldValue));
-                log({
+                dir({
                     oldValue: change.oldValue
                 });
                 trace();
@@ -92,7 +107,7 @@ function logger(change) {
             case 'create':
                 // (value) object, newValue
                 logNext("set '%s': %s", observableName(change.object), formatValue(change.newValue));
-                log({
+                dir({
                     newValue: change.newValue
                 });
                 trace();
@@ -104,12 +119,16 @@ function logger(change) {
 }
 
 const consoleSupportsGroups = typeof console.groupCollapsed === "function";
+let currentDepth = 0;
 
 function group() {
+    // TODO: firefox does not support formatting in groupStart methods..
     console[consoleSupportsGroups ? "groupCollapsed" : "log"].apply(console, arguments);
+    currentDepth++;
 }
 
 function groupEnd() {
+    currentDepth--;
     if (consoleSupportsGroups)
         console.groupEnd();
 }
@@ -118,8 +137,18 @@ function log() {
     console.log.apply(console, arguments);
 }
 
+function dir() {
+    console.dir.apply(console, arguments);
+}
+
 function trace() {
+    // TODO: needs wrapping in firefox?
     console.trace(); // TODO: use stacktrace.js or similar and strip off unrelevant stuff?
+}
+
+function closeGroupsOnError() {
+    for (let i = 0, m = currentDepth; i < m; i++)
+        groupEnd();
 }
 
 const closeToken = {
@@ -157,7 +186,9 @@ function formatValue(value) {
 }
 
 function getNameForThis(who) {
-    if (who && typeof who === "object") {
+    if (who === null || who === undefined) {
+        return "";
+    } else if (who && typeof who === "object") {
 	    if (who && who.$mobx) {
 		    return `${who.$mobx.name}#${who.$mobx.id}`;
         } else if (who.constructor) {
