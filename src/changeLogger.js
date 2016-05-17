@@ -24,11 +24,11 @@ function logger(change) {
             case 'action':
                 // name, target, arguments, fn
                 logNext(`%caction '%s' %s`, 'color:blue', change.name, autoWrap("(", getNameForThis(change.target)));
-                log(change.arguments),
-                dir({
-                    fn: change.fn,
-                    target: change.target
-                });
+                log(change.arguments);
+                // dir({
+                //     fn: change.fn,
+                //     target: change.target
+                // });
                 trace();
                 break;
             case 'transaction':
@@ -42,18 +42,18 @@ function logger(change) {
             case 'reaction':
                 // object, fn
                 logNext(`%creaction '%s'`, 'color:green', observableName(change.object));
-                dir({
-                    fn: change.fn
-                });
+                // dir({
+                //     fn: change.fn
+                // });
                 trace();
                 break;
             case 'compute':
                 // object, target, fn
-                group(`%ccomputed '%s' %s`, 'color:gray', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
-                dir({
-                   fn: change.fn,
-                   target: change.target 
-                });
+                group(`%ccomputed '%s' %s`, 'color:green', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
+                // dir({
+                //    fn: change.fn,
+                //    target: change.target 
+                // });
                 groupEnd();
                 break;
             case 'error':
@@ -113,6 +113,9 @@ function logger(change) {
                 trace();
                 break;
             default:
+                // generic fallback for future events
+                logNext(change.type);
+                dir(change);
                 break;
         }
     }
@@ -143,7 +146,7 @@ function dir() {
 
 function trace() {
     // TODO: needs wrapping in firefox?
-    console.trace(); // TODO: use stacktrace.js or similar and strip off unrelevant stuff?
+    console.trace("stack"); // TODO: use stacktrace.js or similar and strip off unrelevant stuff?
 }
 
 function closeGroupsOnError() {
@@ -167,21 +170,15 @@ function autoWrap(token, value) {
 }
 
 function observableName(object) {
-    if (mobx.isObservableArray(object)) {
-        return object.$mobx.atom.name + "@" + object.$mobx.atom.id;
-    } else if (object.$mobx) {
-        // array, object
-        return object.$mobx.name + "@" + object.$mobx.id;
-    } else {
-        // map, reaction, observable value..
-        return object.name + "@" + object.id;
-    }
+    return mobx.extras.getDebugName(object);
 }
 
 function formatValue(value) {
-    if (isPrimitive(value))
+    if (isPrimitive(value)) {
+        if (typeof value === "string" && value.length > 100)
+            return value.substr(0, 97) + "..."
         return value;
-    else
+    } else
         return autoWrap("(", getNameForThis(value));
 }
 
@@ -190,9 +187,9 @@ function getNameForThis(who) {
         return "";
     } else if (who && typeof who === "object") {
 	    if (who && who.$mobx) {
-		    return `${who.$mobx.name}#${who.$mobx.id}`;
+		    return who.$mobx.name;
         } else if (who.constructor) {
-            return `${who.constructor.name || "object"}`;
+            return who.constructor.name || "object";
         }
 	}
 	return `${typeof who}`;
