@@ -6,6 +6,10 @@
 
 `npm install mobx-react-devtools --save-dev`
 
+or 
+
+`<script src="https://npmcdn.com/mobx-react-devtools@4.0.5"></script>`
+
 ## Usage
 
 Somewhere in your application, create a DevTools component:
@@ -24,6 +28,12 @@ class MyApp extends React.Component {
   }
 }
 ```
+or
+
+`React.createElement(mobxDevtools.default)`
+
+
+
 
 Supported props:
 * `hightlightTimeout` — number, default: 1500.
