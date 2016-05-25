@@ -50,7 +50,7 @@ export default Radium(class Panel extends Component {
             onClick={onToggleGraph}
           />
           <button
-            title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console)"
+            title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console). Use Chrome / Chromium for an optimal experience"
             style={[styles.button, logEnabled ? styles.buttonLogActive : styles.buttonLog, logEnabled && styles.button.active]}
             key="buttonLog"
             onClick={onToggleLog}
