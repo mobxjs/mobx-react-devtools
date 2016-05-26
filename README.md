@@ -8,7 +8,7 @@
 
 or 
 
-`<script src="https://npmcdn.com/mobx-react-devtools@4.0.5"></script>`
+`<script src="https://npmcdn.com/mobx-react-devtools"></script>`
 
 ## Usage
 
