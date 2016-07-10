@@ -8,7 +8,6 @@ export default class ModalContaner extends Component {
     onOverlayClick: PropTypes.func.isRequired,
   };
 
-
   componentDidUpdate(prevProps) {
     const html = document.body.parentNode;
     if (prevProps.children && !this.props.children) {

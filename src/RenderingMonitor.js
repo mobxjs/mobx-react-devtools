@@ -1,5 +1,5 @@
-import mobx from 'mobx';
 import mobxReact from 'mobx-react';
+import { getGlobalState, setGlobalState } from './globalStore';
 
 const getCost = renderTime => {
   switch(true) {
@@ -11,20 +11,17 @@ const getCost = renderTime => {
 
 export default class RenderingMonitor {
 
-  boxesList = [];
   _boxesRegistry = typeof WeakMap !== 'undefined' ? new WeakMap() : new Map();
 
-  constructor({ hightlightTimeout, onUpdate, shouldReport, getCoordinates }) {
+  constructor({ hightlightTimeout }) {
 
-    this.handleUpdate = onUpdate;
-
-    this._disposeRenderReporter = mobxReact.renderReporter.on(report => {
-      if (shouldReport() !== true) return;
+    this._renderReporterDisposer = mobxReact.renderReporter.on(report => {
+      if (getGlobalState().updatesEnabled !== true) return;
       switch (report.event) {
 
         case 'render':
           if (!report.node) return;
-          const offset = getCoordinates(report.node);
+          const offset = report.node.getBoundingClientRect();
           const box = this.getBoxForNode(report.node);
           box.type = 'rendering';
           box.y = offset.top;
@@ -39,8 +36,9 @@ export default class RenderingMonitor {
           };
           box.lifeTime = hightlightTimeout;
 
-          if (this.boxesList.indexOf(box) === -1) this.boxesList = this.boxesList.concat([box]);
-          this.handleUpdate();
+          let renderingBoxes = getGlobalState().renderingBoxes;
+          if (renderingBoxes.indexOf(box) === -1) renderingBoxes = renderingBoxes.concat([box]);
+          setGlobalState({ renderingBoxes });
           if (box._timeout) clearTimeout(box._timeout);
           box._timeout = setTimeout(() => this.removeBox(report.node, true), hightlightTimeout);
           return;
@@ -66,15 +64,16 @@ export default class RenderingMonitor {
   };
 
   dispose() {
-    this._disposeRenderReporter();
+    this._renderReporterDisposer();
   }
 
   removeBox(node) {
     if (this._boxesRegistry.has(node) === false) return;
-    const index = this.boxesList.indexOf(this._boxesRegistry.get(node));
+    let renderingBoxes = getGlobalState().renderingBoxes;
+    const index = renderingBoxes.indexOf(this._boxesRegistry.get(node));
     if (index !== -1) {
-      this.boxesList = this.boxesList.slice(0, index).concat(this.boxesList.slice(index + 1));
-      this.handleUpdate();
+      renderingBoxes = renderingBoxes.slice(0, index).concat(renderingBoxes.slice(index + 1));
+      setGlobalState({ renderingBoxes });
     }
   };
 
