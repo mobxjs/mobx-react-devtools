@@ -24,6 +24,7 @@ export default class UpdatesControl extends Component {
 
   componentWillUnmount() {
     eventEmitter.removeListener('update', this.handleUpdate)
+    this.renderingMonitor.dispose();
   }
 
   handleUpdate = () => this.setState(getGlobalState());
