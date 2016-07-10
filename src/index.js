@@ -20,11 +20,13 @@ export default class DevTool extends Component {
     hightlightTimeout: PropTypes.number,
     position: PropTypes.object,
     userAgent: PropTypes.string,
+    PanelComponent: PropTypes.oneOf(PropTypes.instanceOf(Component), PropTypes.func),
   };
 
   static defaultProps = {
     hightlightTimeout: 1500,
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36',
+    PanelComponent: Panel,
   };
 
   state = {
@@ -155,11 +157,12 @@ export default class DevTool extends Component {
   };
 
   render() {
+    const { PanelComponent } = this.props;
     const { updatesEnabled, graphEnabled, logEnabled, dependencyTree } = this.state;
 
     return (
       <div ref={el => this.containerEl = el}>
-        <Panel
+        <PanelComponent
           radiumConfig={{ userAgent: this.props.userAgent }}
           position={this.props.position}
           updatesEnabled={updatesEnabled}
