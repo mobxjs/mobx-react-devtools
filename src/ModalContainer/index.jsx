@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Radium from 'radium';
 import * as styles from './styles';
 
-export default Radium(class ModalContaner extends Component {
+export default class ModalContaner extends Component {
 
   static propTypes = {
     children: PropTypes.node,
@@ -47,4 +46,4 @@ export default Radium(class ModalContaner extends Component {
       </div>
     );
   }
-});
+};

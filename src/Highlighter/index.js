@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import Radium, { Style } from 'radium';
 import * as styles from './styles';
 
 class AnimatedBox extends Component {
@@ -24,7 +23,7 @@ class AnimatedBox extends Component {
   }
 }
 
-export default Radium(class Highlighter extends Component {
+export default class Highlighter extends Component {
 
   static propTypes = {
     boxes: PropTypes.arrayOf(PropTypes.shape({
@@ -52,14 +51,14 @@ export default Radium(class Highlighter extends Component {
             key={box.id}
             // A poor man's animation:
             ref={el => setTimeout(() => { if (el) el.style.opacity = 0; }, box.lifeTime - 500)}
-            style={[styles.box, styles.rendering, renderingCostStyle, {
+            style={Object.assign({}, styles.box, styles.rendering, renderingCostStyle, {
                 left: box.x,
                 top: box.y,
                 width: box.width,
                 height: box.height,
-              }]}
+              })}
           >
-            <span style={[styles.text, renderingCostStyle.text]}>
+            <span style={Object.assign({}, styles.text, renderingCostStyle.text)}>
               {box.renderInfo.count}x | {box.renderInfo.renderTime} / {box.renderInfo.totalTime} ms
             </span>
           </div>
@@ -69,12 +68,12 @@ export default Radium(class Highlighter extends Component {
         return (
           <div
             key={box.id}
-            style={[styles.box, styles.hover, {
+            style={Object.assign({}, styles.box, styles.hover, {
                 left: box.x,
                 top: box.y,
                 width: box.width,
                 height: box.height,
-            }]}
+            })}
           />
         );
 
@@ -93,4 +92,4 @@ export default Radium(class Highlighter extends Component {
       </div>
     );
   }
-});
+};

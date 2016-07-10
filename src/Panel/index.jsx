@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Radium from 'radium';
 import * as styles from './styles';
 
-export default Radium(class Panel extends Component {
+export default class Panel extends Component {
 
   static propTypes = {
     logEnabled: PropTypes.bool.isRequired,
@@ -11,6 +10,10 @@ export default Radium(class Panel extends Component {
     onToggleLog: PropTypes.func.isRequired,
     onToggleUpdates: PropTypes.func.isRequired,
     onToggleGraph: PropTypes.func.isRequired,
+  };
+
+  state = {
+    hoveredButton: undefined
   };
 
   render() {
@@ -23,41 +26,72 @@ export default Radium(class Panel extends Component {
       onToggleUpdates,
       onToggleGraph,
     } = this.props;
+    const { hoveredButton } = this.state;
 
-    const panelStyles = {};
+    const additionalPanelStyles = {};
     if (position) {
-      panelStyles.top = position.top;
-      panelStyles.right = position.right;
-      panelStyles.bottom = position.bottom;
-      panelStyles.left = position.left;
+      additionalPanelStyles.top = position.top;
+      additionalPanelStyles.right = position.right;
+      additionalPanelStyles.bottom = position.bottom;
+      additionalPanelStyles.left = position.left;
     } else {
-      panelStyles.top = '0px';
-      panelStyles.right = '20px';
+      additionalPanelStyles.top = '0px';
+      additionalPanelStyles.right = '20px';
     }
+
+    const buttonUpdatesStyles = Object.assign(
+      {},
+      styles.button,
+      updatesEnabled ? styles.buttonUpdatesActive : styles.buttonUpdates,
+      updatesEnabled && styles.button.active,
+      hoveredButton === 'buttonUpdates' && styles.button.hover
+    );
+
+    const buttonGraphStyles = Object.assign(
+      {},
+      styles.button,
+      graphEnabled ? styles.buttonGraphActive : styles.buttonGraph,
+      graphEnabled && styles.button.active,
+      hoveredButton === 'buttonGraph' && styles.button.hover
+    );
+
+    const buttonLogStyles = Object.assign(
+      {},
+      styles.button,
+      logEnabled ? styles.buttonLogActive : styles.buttonLog,
+      logEnabled && styles.button.active,
+      hoveredButton === 'buttonLog' && styles.button.hover
+    );
 
     return (
       <div>
-        <div style={Object.assign(styles.panel, panelStyles)}>
+        <div style={Object.assign({}, styles.panel, additionalPanelStyles)}>
           <button
             title="Visualize component re-renders"
-            style={[styles.button, updatesEnabled ? styles.buttonUpdatesActive : styles.buttonUpdates, updatesEnabled && styles.button.active]}
+            style={buttonUpdatesStyles}
             key="buttonUpdates"
+            onMouseOver={() => this.setState({ hoveredButton: 'buttonUpdates' })}
+            onMouseOut={() => this.setState({ hoveredButton: undefined })}
             onClick={onToggleUpdates}
           />
           <button
             title="Select a component and show it's dependency tree"
-            style={[styles.button, graphEnabled ? styles.buttonGraphActive : styles.buttonGraph, graphEnabled && styles.button.active]}
+            style={buttonGraphStyles}
             key="buttonGraph"
+            onMouseOver={() => this.setState({ hoveredButton: 'buttonGraph' })}
+            onMouseOut={() => this.setState({ hoveredButton: undefined })}
             onClick={onToggleGraph}
           />
           <button
             title="Log all MobX state changes and reactions to the browser console (use F12 to show / hide the console). Use Chrome / Chromium for an optimal experience"
-            style={[styles.button, logEnabled ? styles.buttonLogActive : styles.buttonLog, logEnabled && styles.button.active]}
+            style={buttonLogStyles}
             key="buttonLog"
+            onMouseOver={() => this.setState({ hoveredButton: 'buttonLog' })}
+            onMouseOut={() => this.setState({ hoveredButton: undefined })}
             onClick={onToggleLog}
           />
         </div>
       </div>
     );
   }
-});
+};

@@ -31,7 +31,6 @@
         "babel-preset-react": "^6.5.0",
         "file-loader": "^0.8.5",
         "es6-object-assign": "^1.0.1",
-        "radium": "^0.17.1",
         "url-loader": "^0.5.7",
         "webpack": "^1.12.0"
     },

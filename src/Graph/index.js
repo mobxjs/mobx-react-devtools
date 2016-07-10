@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ModalContainer from '../ModalContainer';
-import Radium from 'radium';
 import * as styles from './styles.js';
 
-export default Radium(class Graph extends Component {
+export default class Graph extends Component {
 
   static propTypes = {
     dependencyTree: PropTypes.any,
@@ -15,7 +14,7 @@ export default Radium(class Graph extends Component {
   renderTreeItem({ name, dependencies }, isLast, isRoot) {
     return (
       <div style={styles.item} key={name}>
-        <span style={[styles.box, isRoot && styles.box.root]}>{name}</span>
+        <span style={Object.assign({}, styles.box, isRoot && styles.box.root)}>{name}</span>
         {dependencies &&
           <div style={styles.tree}>
             {dependencies.map((dependency, i) =>
@@ -24,7 +23,7 @@ export default Radium(class Graph extends Component {
           </div>
         }
         {!isRoot && <span style={styles.itemHorisontalDash} />}
-        {!isRoot && <span style={[styles.itemVericalStick, isLast && styles.itemVericalStick.short]} />}
+        {!isRoot && <span style={Object.assign({}, styles.itemVericalStick, isLast && styles.itemVericalStick.short)} />}
       </div>
     );
   }
@@ -44,4 +43,4 @@ export default Radium(class Graph extends Component {
       </ModalContainer>
     );
   }
-});
+};

@@ -20,7 +20,7 @@ export const button = {
   margin: '0 10px',
   cursor: 'pointer',
   border: 'none',
-  ':hover': {
+  hover: {
     opacity: 0.7,
   },
   active: {
