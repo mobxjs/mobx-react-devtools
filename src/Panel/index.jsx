@@ -24,19 +24,20 @@ export default Radium(class Panel extends Component {
       onToggleGraph,
     } = this.props;
 
+    const panelStyles = {};
     if (position) {
-      styles.top = position.top;
-      styles.right = position.right;
-      styles.bottom = position.bottom;
-      styles.left = position.left;
+      panelStyles.top = position.top;
+      panelStyles.right = position.right;
+      panelStyles.bottom = position.bottom;
+      panelStyles.left = position.left;
     } else {
-      styles.top = '0px';
-      styles.right = '20px';
+      panelStyles.top = '0px';
+      panelStyles.right = '20px';
     }
 
     return (
       <div>
-        <div style={Object.assign(styles.panel, styles)}>
+        <div style={Object.assign(styles.panel, panelStyles)}>
           <button
             title="Visualize component re-renders"
             style={[styles.button, updatesEnabled ? styles.buttonUpdatesActive : styles.buttonUpdates, updatesEnabled && styles.button.active]}
