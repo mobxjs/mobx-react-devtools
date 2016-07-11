@@ -49,6 +49,51 @@ For each component the color indicates roughly how long the coloring took. Rende
 * Orange: less then 100 ms
 * Red: rendering for this component took more than 100ms
 
+### Custom panel design
+
+```js
+import DevTool, { GraphControl, LogControl, UpdatesControl } from 'mobx-react-devtools';
+
+class MyNiceButton extends React.Component {
+  render() {
+    const { active, onToggle, children } = this.props;
+    return (
+      <button onClick={onToggle}>
+        {children}
+        {active ? ' on' : ' off'}
+      </button>
+    );
+  }
+}
+
+class MyApp extends React.Component {
+  render() {
+    return (
+      <div>
+    
+        {/* Include somewhere with `noPanel` prop. Is needed to display updates and modals */}
+        <DevTool noPanel />
+        
+        <div className="my-custom-devtools-panel-design">
+          <GraphControl>
+            {/* Must have only one child that takes props: `active` (bool), `onToggle` (func) */}
+            <MyNiceButton>Graph</MyNiceButton>
+          </GraphControl>
+          <LogControl>
+            {/* Must have only one child that takes props: `active` (bool), `onToggle` (func) */}
+            <MyNiceButton>Log</MyNiceButton>
+          </LogControl>
+          <UpdatesControl>
+            {/* Must have only one child that takes props: `active` (bool), `onToggle` (func) */}
+            <MyNiceButton>Updates</MyNiceButton> 
+          </UpdatesControl>
+        </div>
+      </div>
+    );
+  }
+}
+```
+
 ## Roadmap
 
 * ~~Be able to turn dev-tools on and off at runtime~~
