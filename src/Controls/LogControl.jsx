@@ -16,13 +16,12 @@ export default class LogControl extends Component {
     eventEmitter.removeListener('update', this.handleUpdate)
   }
 
-  handleUpdate = () => this.setState(getGlobalState());
-
-  handleToggleLog = () => {
-    const newLevel = !this.state.logEnabled;
-    setLogLevel(newLevel);
-    setGlobalState({ logEnabled: newLevel });
+  handleUpdate = () => {
+    this.setState(getGlobalState());
+    setLogLevel(this.state.logEnabled);
   };
+
+  handleToggleLog = () => setGlobalState({ logEnabled: !this.state.logEnabled });
 
   render() {
     const { logEnabled } = this.state;
