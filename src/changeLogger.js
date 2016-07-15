@@ -25,7 +25,7 @@ function logger(change) {
         switch (change.type) {
             case 'action':
                 // name, target, arguments, fn
-                logNext(`%caction '%s' %s`, 'color:blue', change.name, autoWrap("(", getNameForThis(change.target)));
+                logNext(`%caction '%s' %s`, 'color:dodgerblue', change.name, autoWrap("(", getNameForThis(change.target)));
                 log(change.arguments);
                 // dir({
                 //     fn: change.fn,
@@ -39,11 +39,11 @@ function logger(change) {
                 break;
             case 'scheduled-reaction':
                 // object
-                logNext(`%cscheduled async reaction '%s'`, 'color:green', observableName(change.object));
+                logNext(`%cscheduled async reaction '%s'`, 'color:#10a210', observableName(change.object));
                 break;
             case 'reaction':
                 // object, fn
-                logNext(`%creaction '%s'`, 'color:green', observableName(change.object));
+                logNext(`%creaction '%s'`, 'color:#10a210', observableName(change.object));
                 // dir({
                 //     fn: change.fn
                 // });
@@ -51,7 +51,7 @@ function logger(change) {
                 break;
             case 'compute':
                 // object, target, fn
-                group(`%ccomputed '%s' %s`, 'color:green', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
+                group(`%ccomputed '%s' %s`, 'color:#10a210', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
                 // dir({
                 //    fn: change.fn,
                 //    target: change.target
@@ -60,7 +60,7 @@ function logger(change) {
                 break;
             case 'error':
                 // message
-                logNext('%cerror: %s', 'color:red', change.message);
+                logNext('%cerror: %s', 'color:tomato', change.message);
                 trace();
                 closeGroupsOnError();
                 break;
