@@ -12,10 +12,6 @@ export default class UpdatesControl extends Component {
     hightlightTimeout: 1500,
   };
 
-  componentWillMount() {
-    this.setState(getGlobalState());
-  }
-
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
     const { hightlightTimeout } = this.props;
@@ -27,14 +23,15 @@ export default class UpdatesControl extends Component {
     this.renderingMonitor.dispose();
   }
 
-  handleUpdate = () => this.setState(getGlobalState());
+  handleUpdate = () => this.setState({});
 
   handleToggleUpdates = () => {
-    setGlobalState({ updatesEnabled: !this.state.updatesEnabled });
+    const { updatesEnabled } = getGlobalState();
+    setGlobalState({ updatesEnabled: !updatesEnabled });
   };
 
   render() {
-    const { updatesEnabled } = this.state;
+    const { updatesEnabled } = getGlobalState();
     const { children } = this.props;
     return React.cloneElement(children, {
       onToggle: this.handleToggleUpdates,

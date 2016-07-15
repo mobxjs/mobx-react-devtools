@@ -5,7 +5,7 @@ import { getGlobalState, setGlobalState, eventEmitter, _handleMouseMove, _handle
 export default class GraphControl extends Component {
 
   componentWillMount() {
-    this.setState(getGlobalState());
+    this.setState({});
   }
 
   componentDidMount() {
@@ -29,17 +29,18 @@ export default class GraphControl extends Component {
     }
   }
 
-  handleUpdate = () => this.setState(getGlobalState());
+  handleUpdate = () => this.setState({});
 
   handleToggleGraph = () => {
+    const { graphEnabled } = getGlobalState();
     setGlobalState({
       hoverBoxes: [],
-      graphEnabled: !this.state.graphEnabled
+      graphEnabled: !graphEnabled,
     });
   };
 
   render() {
-    const { graphEnabled } = this.state;
+    const { graphEnabled } = getGlobalState();
     const { children } = this.props;
     return React.cloneElement(children, {
       onToggle: this.handleToggleGraph,

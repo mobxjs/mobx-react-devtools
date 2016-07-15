@@ -4,10 +4,6 @@ import { getGlobalState, setGlobalState, eventEmitter } from '../globalStore';
 
 export default class LogControl extends Component {
 
-  componentWillMount() {
-    this.setState(getGlobalState());
-  }
-
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
   }
@@ -17,14 +13,18 @@ export default class LogControl extends Component {
   }
 
   handleUpdate = () => {
-    this.setState(getGlobalState());
-    setLogLevel(this.state.logEnabled);
+    this.setState({});
+    const { logEnabled } = getGlobalState();
+    setLogLevel(logEnabled);
   };
 
-  handleToggleLog = () => setGlobalState({ logEnabled: !this.state.logEnabled });
+  handleToggleLog = () => {
+    const { logEnabled } = getGlobalState();
+    setGlobalState({ logEnabled: !logEnabled })
+  };
 
   render() {
-    const { logEnabled } = this.state;
+    const { logEnabled } = getGlobalState();
     const { children } = this.props;
     return React.cloneElement(children, {
       onToggle: this.handleToggleLog,

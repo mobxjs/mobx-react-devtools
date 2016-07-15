@@ -12,14 +12,6 @@ export default class Panel extends Component {
     hightlightTimeout: PropTypes.number,
   };
 
-  state = {
-    hoveredButton: undefined
-  };
-
-  componentWillMount() {
-    this.setState(getGlobalState());
-  }
-
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
   }
@@ -28,7 +20,7 @@ export default class Panel extends Component {
     eventEmitter.removeListener('update', this.handleUpdate)
   }
 
-  handleUpdate = () => this.setState(getGlobalState());
+  handleUpdate = () => this.setState({});
 
   render() {
     const { position, hightlightTimeout } = this.props;

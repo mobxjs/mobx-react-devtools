@@ -5,10 +5,6 @@ import * as styles from './styles.js';
 
 export default class Graph extends Component {
 
-  componentWillMount() {
-    this.setState(getGlobalState());
-  }
-
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
   }
@@ -17,7 +13,7 @@ export default class Graph extends Component {
     eventEmitter.removeListener('update', this.handleUpdate)
   }
 
-  handleUpdate = () => this.setState(getGlobalState());
+  handleUpdate = () => this.setState({});
 
   handleClose = () => setGlobalState({ dependencyTree: undefined });
 
@@ -39,7 +35,7 @@ export default class Graph extends Component {
   }
 
   render() {
-    const { dependencyTree } = this.state;
+    const { dependencyTree } = getGlobalState();
     return (
       <ModalContainer onOverlayClick={this.handleClose}>
         {dependencyTree &&
