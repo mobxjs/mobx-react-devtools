@@ -4,7 +4,9 @@ let logDisposer = null;
 
 export function setLogLevel(newLevel) {
     if (newLevel === true && !logDisposer) {
-        console.log("The output of the MobX logger is optimized for Chrome");
+        if (typeof navigator !== 'undefined' && navigator.userAgent.indexOf('Chrome') === -1) {
+            console.warn("The output of the MobX logger is optimized for Chrome");
+        }
         logDisposer = mobx.spy(logger);
     } else if (newLevel === false && logDisposer) {
         logDisposer();
@@ -52,7 +54,7 @@ function logger(change) {
                 group(`%ccomputed '%s' %s`, 'color:green', observableName(change.object), autoWrap("(", getNameForThis(change.target)));
                 // dir({
                 //    fn: change.fn,
-                //    target: change.target 
+                //    target: change.target
                 // });
                 groupEnd();
                 break;
