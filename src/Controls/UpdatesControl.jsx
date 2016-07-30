@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import RenderingMonitor from '../RenderingMonitor';
-import { getGlobalState, setGlobalState, eventEmitter } from '../globalStore';
+import { getGlobalState, setGlobalState, eventEmitter, restoreUpdatesFromLocalstorage } from '../globalStore';
 
 export default class UpdatesControl extends Component {
 
@@ -16,6 +16,7 @@ export default class UpdatesControl extends Component {
     eventEmitter.on('update', this.handleUpdate);
     const { hightlightTimeout } = this.props;
     this.renderingMonitor = new RenderingMonitor({ hightlightTimeout });
+    restoreUpdatesFromLocalstorage();
   }
 
   componentWillUnmount() {

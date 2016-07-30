@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { setLogLevel } from '../changeLogger';
-import { getGlobalState, setGlobalState, eventEmitter } from '../globalStore';
+import { getGlobalState, setGlobalState, eventEmitter, restoreLogFromLocalstorage } from '../globalStore';
 
 export default class LogControl extends Component {
 
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
+    restoreLogFromLocalstorage();
   }
 
   componentWillUnmount() {
@@ -14,8 +14,6 @@ export default class LogControl extends Component {
 
   handleUpdate = () => {
     this.setState({});
-    const { logEnabled } = getGlobalState();
-    setLogLevel(logEnabled);
   };
 
   handleToggleLog = () => {

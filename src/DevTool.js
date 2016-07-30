@@ -23,7 +23,6 @@ export default class DevTool extends Component {
 
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
-    setTimeout(restoreState, 0);
   }
 
   componentWillUnmount() {

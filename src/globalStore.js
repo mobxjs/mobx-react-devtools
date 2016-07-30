@@ -2,6 +2,7 @@ import mobx from 'mobx';
 import mobxReact from 'mobx-react';
 import EventEmmiter from 'events';
 import deduplicateDependencies from './deduplicateDependencies';
+import { setLogLevel } from './changeLogger';
 
 const LS_UPDATES_KEY = 'mobx-react-devtool__updatesEnabled';
 const LS_LOG_KEY = 'mobx-react-devtool__logEnabled';
@@ -17,30 +18,43 @@ let state = {
 export const eventEmitter = new EventEmmiter();
 
 export const setGlobalState = newState => {
-  state = Object.assign({}, state, newState);
+
+  if (state.logEnabled !== newState.logEnabled) setLogLevel(newState.logEnabled);
 
   if (typeof window !== 'undefined' && window.localStorage) {
-    if (state.updatesEnabled) {
+    if (newState.updatesEnabled === true) {
       window.localStorage.setItem(LS_UPDATES_KEY, 'YES');
-    } else {
+    } else if (newState.updatesEnabled === false) {
       window.localStorage.removeItem(LS_UPDATES_KEY);
     }
-    if (state.logEnabled) {
+    if (newState.logEnabled === true) {
       window.localStorage.setItem(LS_LOG_KEY, 'YES');
-    } else {
+    } else if (newState.logEnabled === false) {
       window.localStorage.removeItem(LS_LOG_KEY);
     }
   }
+
+  if (newState.graphEnabled === false) {
+    newState.hoverBoxes = [];
+  }
+
+  state = Object.assign({}, state, newState);
+
   eventEmitter.emit('update');
 };
 
 export const getGlobalState = () => state;
 
-export const restoreState = () => {
+export const restoreUpdatesFromLocalstorage = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const updatesEnabled = window.localStorage.getItem(LS_UPDATES_KEY) === 'YES';
+    setGlobalState({ updatesEnabled });
+  }
+};
+export const restoreLogFromLocalstorage = () => {
+  if (typeof window !== 'undefined' && window.localStorage) {
     const logEnabled = window.localStorage.getItem(LS_LOG_KEY) === 'YES';
-    setGlobalState({ updatesEnabled, logEnabled });
+    setGlobalState({ logEnabled });
   }
 };
 
