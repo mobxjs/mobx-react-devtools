@@ -94,6 +94,17 @@ class MyApp extends React.Component {
 }
 ```
 
+#### Change devtools state programmatically
+
+```js
+import { setLogEnabled, setUpdatesEnabled, setGraphEnabled } from 'mobx-react-devtools';
+
+setLogEnabled(true);
+setUpdatesEnabled(false);
+setGraphEnabled(false);
+```
+
+
 ## Roadmap
 
 * ~~Be able to turn dev-tools on and off at runtime~~
