@@ -46,6 +46,7 @@ export default class PanelButton extends Component {
 
     return (
       <button
+        type="button"
         onClick={onToggle}
         title={title}
         style={finalSyles}
