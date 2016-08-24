@@ -1,36 +1,40 @@
 import mobx from 'mobx';
 
-let logDisposer = null;
+let advicedToUseChrome = false;
 
-export function setLogLevel(newLevel) {
-    if (newLevel === true && !logDisposer) {
-        if (typeof navigator !== 'undefined' && navigator.userAgent.indexOf('Chrome') === -1) {
-            console.warn("The output of the MobX logger is optimized for Chrome");
-        }
-        logDisposer = mobx.spy(logger);
-    } else if (newLevel === false && logDisposer) {
-        logDisposer();
-        logDisposer = null;
+let currentDepth = 0;
+let isInsideSkippedGroup = false;
+
+export default function consoleLogChange(change, filter) {
+
+    if (advicedToUseChrome === false && typeof navigator !== 'undefined' && navigator.userAgent.indexOf('Chrome') === -1) {
+        console.warn("The output of the MobX logger is optimized for Chrome");
+        advicedToUseChrome = true;
     }
-}
 
-function logger(change) {
-    if (change.spyReportEnd === true) {
-        if (typeof change.time === "number") {
-            log("%ctotal time: %sms", "color:gray", change.time);
-        }
-        console.groupEnd();
+    const isGroupStart = change.spyReportStart === true;
+    const isGroupEnd = change.spyReportEnd === true;
+
+    let show;
+    if (currentDepth === 0) {
+        show = filter(change);
+        if (isGroupStart && !show) { isInsideSkippedGroup = true; }
+    } else if (isGroupEnd && isInsideSkippedGroup && currentDepth === 1) {
+        show = false;
+        isInsideSkippedGroup = false;
     } else {
-        const logNext = change.spyReportStart === true ? group : log;
+        show = isInsideSkippedGroup !== true;
+    }
+
+    if (show && isGroupEnd) {
+        groupEnd(change.time);
+    } else if (show) {
+        const logNext = isGroupStart ? group : log;
         switch (change.type) {
             case 'action':
                 // name, target, arguments, fn
                 logNext(`%caction '%s' %s`, 'color:dodgerblue', change.name, autoWrap("(", getNameForThis(change.target)));
                 log(change.arguments);
-                // dir({
-                //     fn: change.fn,
-                //     target: change.target
-                // });
                 trace();
                 break;
             case 'transaction':
@@ -121,19 +125,25 @@ function logger(change) {
                 break;
         }
     }
+
+    if (isGroupStart) currentDepth++;
+    if (isGroupEnd) currentDepth--;
 }
 
 const consoleSupportsGroups = typeof console.groupCollapsed === "function";
-let currentDepth = 0;
+let currentlyLoggedDepth = 0;
 
 function group() {
     // TODO: firefox does not support formatting in groupStart methods..
     console[consoleSupportsGroups ? "groupCollapsed" : "log"].apply(console, arguments);
-    currentDepth++;
+    currentlyLoggedDepth++;
 }
 
-function groupEnd() {
-    currentDepth--;
+function groupEnd(time) {
+    currentlyLoggedDepth--;
+    if (typeof time === "number") {
+        log("%ctotal time: %sms", "color:gray", time);
+    }
     if (consoleSupportsGroups)
         console.groupEnd();
 }
@@ -152,7 +162,7 @@ function trace() {
 }
 
 function closeGroupsOnError() {
-    for (let i = 0, m = currentDepth; i < m; i++)
+    for (let i = 0, m = currentlyLoggedDepth; i < m; i++)
         groupEnd();
 }
 
@@ -163,7 +173,7 @@ const closeToken = {
     "[" : "]",
     "<" : "]",
     "#" : ""
-}
+};
 
 function autoWrap(token, value) {
     if (!value)
@@ -178,7 +188,7 @@ function observableName(object) {
 function formatValue(value) {
     if (isPrimitive(value)) {
         if (typeof value === "string" && value.length > 100)
-            return value.substr(0, 97) + "..."
+            return value.substr(0, 97) + "...";
         return value;
     } else
         return autoWrap("(", getNameForThis(value));
@@ -188,15 +198,15 @@ function getNameForThis(who) {
     if (who === null || who === undefined) {
         return "";
     } else if (who && typeof who === "object") {
-	    if (who && who.$mobx) {
-		    return who.$mobx.name;
+      if (who && who.$mobx) {
+        return who.$mobx.name;
         } else if (who.constructor) {
             return who.constructor.name || "object";
         }
-	}
-	return `${typeof who}`;
+  }
+  return `${typeof who}`;
 }
 
 function isPrimitive(value) {
-	return value === null || value === undefined || typeof value === "string" || typeof value === "number" || typeof value === "boolean";
+  return value === null || value === undefined || typeof value === "string" || typeof value === "number" || typeof value === "boolean";
 }
