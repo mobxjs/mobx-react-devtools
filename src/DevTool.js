@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getGlobalState, restoreState, eventEmitter } from './globalStore';
+import { getGlobalState, setGlobalState, restoreState, eventEmitter } from './globalStore';
 import Panel from './Panel';
 import Highlighter from './Highlighter';
 import Graph from './Graph';
@@ -9,8 +9,8 @@ export default class DevTool extends Component {
   static propTypes = {
     hightlightTimeout: PropTypes.number,
     position: PropTypes.object,
-    userAgent: PropTypes.string,
     noPanel: PropTypes.bool,
+    // logFilter: PropTypes.func,
   };
 
   static defaultProps = {
@@ -23,6 +23,9 @@ export default class DevTool extends Component {
 
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
+    // if (this.props.logFilter) {
+    //   setGlobalState({ logFilter: this.props.logFilter });
+    // }
   }
 
   componentWillUnmount() {

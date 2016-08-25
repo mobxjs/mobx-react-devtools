@@ -2,7 +2,7 @@ import mobx from 'mobx';
 import mobxReact from 'mobx-react';
 import EventEmmiter from 'events';
 import deduplicateDependencies from './deduplicateDependencies';
-import { setLogLevel } from './changeLogger';
+import consoleLogChange from './consoleLogChange';
 
 const LS_UPDATES_KEY = 'mobx-react-devtool__updatesEnabled';
 const LS_LOG_KEY = 'mobx-react-devtool__logEnabled';
@@ -13,13 +13,23 @@ let state = {
   logEnabled: false,
   hoverBoxes: [],
   renderingBoxes: [],
+  logFilter: () => true,
 };
 
 export const eventEmitter = new EventEmmiter();
 
+let loggerDisposer;
+
 export const setGlobalState = newState => {
 
-  if (state.logEnabled !== newState.logEnabled) setLogLevel(newState.logEnabled);
+  if (state.logEnabled !== newState.logEnabled) {
+    if (newState.logEnabled === true) {
+      if (loggerDisposer) loggerDisposer();
+      loggerDisposer = mobx.spy(change => consoleLogChange(change, state.logFilter));
+    } else if (newState.logEnabled === false && loggerDisposer) {
+      loggerDisposer();
+    }
+  }
 
   if (typeof window !== 'undefined' && window.localStorage) {
     if (newState.updatesEnabled === true) {

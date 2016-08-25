@@ -49,6 +49,35 @@ For each component the color indicates roughly how long the coloring took. Rende
 * Orange: less then 100 ms
 * Red: rendering for this component took more than 100ms
 
+
+### Configuration
+
+```js
+import DevTool, { configureDevtool } from 'mobx-react-devtools';
+
+// Any configurations are optional
+configureDevtool({
+  // Turn on logging changes button programmatically:
+  logEnabled: true,
+  // Turn off displaying conponents' updates button programmatically:
+  updatesEnabled: false,
+  // Log only changes of type `reaction`
+  // (only affects top-level messages in console, not inside groups)
+  logFilter: change => change.type === 'reaction',
+});
+
+```
+
+There are also aliases for turning on/off devtools buttons:
+
+```js
+import { setLogEnabled, setUpdatesEnabled, setGraphEnabled } from 'mobx-react-devtools';
+
+setLogEnabled(true); // same as configureDevtool({ logEnabled: true });
+setUpdatesEnabled(false); // same as configureDevtool({ updatesEnabled: false });
+setGraphEnabled(false); // same as configureDevtool({ logFilter: false });
+```
+
 ### Custom panel design
 
 ```js
@@ -94,17 +123,6 @@ class MyApp extends React.Component {
 }
 ```
 
-#### Change devtools state programmatically
-
-```js
-import { setLogEnabled, setUpdatesEnabled, setGraphEnabled } from 'mobx-react-devtools';
-
-setLogEnabled(true);
-setUpdatesEnabled(false);
-setGraphEnabled(false);
-```
-
-
 ## Roadmap
 
 * ~~Be able to turn dev-tools on and off at runtime~~
@@ -113,6 +131,19 @@ setGraphEnabled(false);
 * ~~Be able to enable state change tracking from the extras module~~
 
 ## Changelog
+
+dev
+* Added ability to filter displaying changes in console
+* Fixed submitting forms by DevTools panel buttons (#29)
+
+4.2.4
+* Added ability to change buttons state programmatically(#27)
+
+4.2.3
+* Made console colors lighter (#25)
+
+4.2.2
+* Added modular devtools controls (#21)
 
 4.0.5
 * Added Object.assign polyfill to avoid issues with server side rendering on old node vesions
