@@ -49,6 +49,10 @@ For each component the color indicates roughly how long the coloring took. Rende
 * Orange: less then 100 ms
 * Red: rendering for this component took more than 100ms
 
+### About log groups
+
+Note that if logging is enabled, MobX actions and reactions will appear as collapsible groups inside the browsers console. 
+Mind that any log statements that are printed during these (re)actions will appear inside those groups as well, so that you can exactly trace when they are triggered.
 
 ### Configuration
 
