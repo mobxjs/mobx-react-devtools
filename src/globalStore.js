@@ -18,6 +18,8 @@ let state = {
 
 export const eventEmitter = new EventEmmiter();
 
+eventEmitter.setMaxListeners(Infinity);
+
 let loggerDisposer;
 
 export const setGlobalState = newState => {
