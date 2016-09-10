@@ -136,6 +136,9 @@ class MyApp extends React.Component {
 
 ## Changelog
 
+4.2.6
+* Fixed “max event listeners” warning when rendering in node.js ()
+
 4.2.5
 * Added ability to filter displaying changes in console
 * Fixed submitting forms by DevTools panel buttons (#29)
