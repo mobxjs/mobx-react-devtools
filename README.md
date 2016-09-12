@@ -10,7 +10,7 @@ DevTools for MobX to track the rendering behavior and data dependencies of your 
 
 or 
 
-`<script src="https://npmcdn.com/mobx-react-devtools"></script>`
+`<script src="https://unpkg.com/mobx-react-devtools"></script>`
 
 ## Usage
 
