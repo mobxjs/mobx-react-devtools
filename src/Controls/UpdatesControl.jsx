@@ -5,17 +5,17 @@ import { getGlobalState, setGlobalState, eventEmitter, restoreUpdatesFromLocalst
 export default class UpdatesControl extends Component {
 
   static propTypes = {
-    hightlightTimeout: PropTypes.number,
+    highlightTimeout: PropTypes.number,
   };
 
   static defaultProps = {
-    hightlightTimeout: 1500,
+    highlightTimeout: 1500,
   };
 
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
-    const { hightlightTimeout } = this.props;
-    this.renderingMonitor = new RenderingMonitor({ hightlightTimeout });
+    const { highlightTimeout } = this.props;
+    this.renderingMonitor = new RenderingMonitor({ highlightTimeout });
     restoreUpdatesFromLocalstorage();
   }
 

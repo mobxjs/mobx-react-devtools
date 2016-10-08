@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getGlobalState, eventEmitter } from '../globalStore';
+import { eventEmitter } from '../globalStore';
 import GraphControl from '../Controls/GraphControl';
 import LogControl from '../Controls/LogControl';
 import UpdatesControl from '../Controls/UpdatesControl';
@@ -9,7 +9,7 @@ import * as styles from './styles';
 export default class Panel extends Component {
 
   static propTypes = {
-    hightlightTimeout: PropTypes.number,
+    highlightTimeout: PropTypes.number,
   };
 
   componentDidMount() {
@@ -23,7 +23,7 @@ export default class Panel extends Component {
   handleUpdate = () => this.setState({});
 
   render() {
-    const { position, hightlightTimeout } = this.props;
+    const { position, highlightTimeout } = this.props;
 
     const additionalPanelStyles = {};
     if (position) {
@@ -39,7 +39,7 @@ export default class Panel extends Component {
     return (
       <div>
         <div style={Object.assign({}, styles.panel, additionalPanelStyles)}>
-          <UpdatesControl hightlightTimeout={hightlightTimeout}>
+          <UpdatesControl highlightTimeout={highlightTimeout}>
             <PanelButton id={'buttonUpdates'} />
           </UpdatesControl>
           <GraphControl>

@@ -7,10 +7,9 @@ import Graph from './Graph';
 export default class DevTool extends Component {
 
   static propTypes = {
-    hightlightTimeout: PropTypes.number,
+    highlightTimeout: PropTypes.number,
     position: PropTypes.object,
     noPanel: PropTypes.bool,
-    // logFilter: PropTypes.func,
   };
 
   static defaultProps = {
@@ -23,9 +22,6 @@ export default class DevTool extends Component {
 
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
-    // if (this.props.logFilter) {
-    //   setGlobalState({ logFilter: this.props.logFilter });
-    // }
   }
 
   componentWillUnmount() {
@@ -42,11 +38,13 @@ export default class DevTool extends Component {
   };
 
   render() {
-    const { noPanel } = this.props;
+    const { noPanel, highlightTimeout } = this.props;
     const { renderingBoxes, hoverBoxes } = this.state;
     return (
       <div>
-        {noPanel !== true && <Panel position={this.props.position} />}
+        {noPanel !== true &&
+          <Panel position={this.props.position} highlightTimeout={highlightTimeout} />
+        }
         <Highlighter boxes={renderingBoxes.concat(hoverBoxes)} />
         <Graph />
       </div>

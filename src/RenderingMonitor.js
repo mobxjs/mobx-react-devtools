@@ -13,7 +13,7 @@ export default class RenderingMonitor {
 
   _boxesRegistry = typeof WeakMap !== 'undefined' ? new WeakMap() : new Map();
 
-  constructor({ hightlightTimeout }) {
+  constructor({ highlightTimeout }) {
 
     this._renderReporterDisposer = mobxReact.renderReporter.on(report => {
       if (getGlobalState().updatesEnabled !== true) return;
@@ -34,13 +34,13 @@ export default class RenderingMonitor {
             totalTime: report.totalTime,
             cost: getCost(report.renderTime),
           };
-          box.lifeTime = hightlightTimeout;
+          box.lifeTime = highlightTimeout;
 
           let renderingBoxes = getGlobalState().renderingBoxes;
           if (renderingBoxes.indexOf(box) === -1) renderingBoxes = renderingBoxes.concat([box]);
           setGlobalState({ renderingBoxes });
           if (box._timeout) clearTimeout(box._timeout);
-          box._timeout = setTimeout(() => this.removeBox(report.node, true), hightlightTimeout);
+          box._timeout = setTimeout(() => this.removeBox(report.node, true), highlightTimeout);
           return;
 
         case 'destroy':
