@@ -14,3 +14,17 @@ export interface IDevToolProps {
 }
 
 export default class DevTools extends React.Component<IDevToolProps, {}> { }
+export class GraphControl extends React.Component<{}, {}> { }
+export class LogControl extends React.Component<{}, {}> { }
+export class UpdatesControl extends React.Component<{ highlightTimeout?: number }, {}> { }
+
+export function configureDevtool(options: {
+    logEnabled?: boolean,
+    updatesEnabled?: boolean,
+    graphEnabled?: boolean,
+    logFilter?: (any) => boolean,
+}): void;
+
+export function setUpdatesEnabled(enabled: boolean): void;
+export function setGraphEnabled(enabled: boolean): void;
+export function setLogEnabled(enabled: boolean): void;
