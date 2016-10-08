@@ -4,7 +4,7 @@
 import React = require('react');
 
 export interface IDevToolProps {
-    hightlightTimeout?: number;
+    highlightTimeout?: number;
     position?: {
         top?:    number | string;
         right?:  number | string;
