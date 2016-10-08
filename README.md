@@ -136,6 +136,12 @@ class MyApp extends React.Component {
 
 ## Changelog
 
+4.2.8
+* Fixed typescript typings (#36)
+
+4.2.7
+* Fixed passing highlightTimeout from DevTool (#41)
+
 4.2.6
 * Fixed “max event listeners” warning when rendering in node.js ()
 
