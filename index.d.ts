@@ -22,7 +22,7 @@ export function configureDevtool(options: {
     logEnabled?: boolean,
     updatesEnabled?: boolean,
     graphEnabled?: boolean,
-    logFilter?: (any) => boolean,
+    logFilter?: (p: any) => boolean,
 }): void;
 
 export function setUpdatesEnabled(enabled: boolean): void;
