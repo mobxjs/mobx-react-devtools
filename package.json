@@ -1,6 +1,6 @@
 {
     "name": "mobx-react-devtools",
-    "version": "4.2.8",
+    "version": "4.2.9",
     "description": "Dev-tools for MobX and React",
     "main": "index.js",
     "typings": "index",
