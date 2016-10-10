@@ -136,6 +136,9 @@ class MyApp extends React.Component {
 
 ## Changelog
 
+4.2.9
+* Fixed typescript typings (#42)
+
 4.2.8
 * Fixed typescript typings (#36)
 
