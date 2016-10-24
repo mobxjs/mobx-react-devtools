@@ -35,6 +35,7 @@ export const box = {
     background: 'rgba(0, 0, 0, 0.05)',
     display: 'inline-block',
     marginBottom: '8px',
+    color: '#000',
     root: {
         fontSize: '15px',
         fontWeight: 'bold',
