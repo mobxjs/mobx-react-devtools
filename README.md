@@ -79,7 +79,7 @@ import { setLogEnabled, setUpdatesEnabled, setGraphEnabled } from 'mobx-react-de
 
 setLogEnabled(true); // same as configureDevtool({ logEnabled: true });
 setUpdatesEnabled(false); // same as configureDevtool({ updatesEnabled: false });
-setGraphEnabled(false); // same as configureDevtool({ logFilter: false });
+setGraphEnabled(false); // same as configureDevtool({ graphEnabled: false });
 ```
 
 ### Custom panel design
