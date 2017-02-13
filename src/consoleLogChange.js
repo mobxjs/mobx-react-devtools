@@ -77,7 +77,7 @@ export default function consoleLogChange(change, filter) {
                 } else if (mobx.isObservableObject(change.object)) {
                     logNext("updated '%s.%s': %s (was: %s)", observableName(change.object), change.name, formatValue(change.newValue), formatValue(change.oldValue));
                 } else {
-                    logNext("updated '%s': %s (was: %s)", observableName(change.object), change.name, formatValue(change.newValue), formatValue(change.oldValue));
+                    logNext("updated '%s': %s (was: %s)", observableName(change.object), formatValue(change.newValue), formatValue(change.oldValue));
                 }
                 dir({
                     newValue: change.newValue,
