@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { eventEmitter } from '../globalStore';
 import GraphControl from '../Controls/GraphControl';
 import LogControl from '../Controls/LogControl';

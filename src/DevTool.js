@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getGlobalState, setGlobalState, restoreState, eventEmitter } from './globalStore';
 import Panel from './Panel';
 import Highlighter from './Highlighter';
