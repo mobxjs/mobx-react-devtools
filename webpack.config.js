@@ -41,9 +41,6 @@ module.exports = {
     mobx: 'mobx'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
     new webpack.optimize.UglifyJsPlugin({
       screw_ie8: true,
       compress: {
