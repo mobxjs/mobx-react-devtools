@@ -1,5 +1,5 @@
-import mobx from 'mobx';
-import mobxReact from 'mobx-react';
+import { spy, extras } from 'mobx';
+import { componentByNodeRegistery } from 'mobx-react';
 import EventEmmiter from 'events';
 import deduplicateDependencies from './deduplicateDependencies';
 import consoleLogChange from './consoleLogChange';
@@ -27,7 +27,7 @@ export const setGlobalState = newState => {
   if (state.logEnabled !== newState.logEnabled) {
     if (newState.logEnabled === true) {
       if (loggerDisposer) loggerDisposer();
-      loggerDisposer = mobx.spy(change => consoleLogChange(change, state.logFilter));
+      loggerDisposer = spy(change => consoleLogChange(change, state.logFilter));
     } else if (newState.logEnabled === false && loggerDisposer) {
       loggerDisposer();
     }
@@ -74,7 +74,7 @@ const findComponentAndNode = target => {
   let node = target;
   let component;
   while(node) {
-    component = mobxReact.componentByNodeRegistery.get(node);
+    component = componentByNodeRegistery.get(node);
     if (component) return { component, node };
     node = node.parentNode;
   }
@@ -109,7 +109,7 @@ export const _handleClick = e => {
     if (component) {
       e.stopPropagation();
       e.preventDefault();
-      const dependencyTree = mobx.extras.getDependencyTree(component.render.$mobx);
+      const dependencyTree = extras.getDependencyTree(component.render.$mobx);
       deduplicateDependencies(dependencyTree);
       setGlobalState({
         dependencyTree,

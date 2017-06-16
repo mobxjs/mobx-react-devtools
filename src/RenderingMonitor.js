@@ -1,4 +1,4 @@
-import mobxReact from 'mobx-react';
+import { renderReporter } from 'mobx-react';
 import { getGlobalState, setGlobalState } from './globalStore';
 
 const getCost = renderTime => {
@@ -15,7 +15,7 @@ export default class RenderingMonitor {
 
   constructor({ highlightTimeout }) {
 
-    this._renderReporterDisposer = mobxReact.renderReporter.on(report => {
+    this._renderReporterDisposer = renderReporter.on(report => {
       if (getGlobalState().updatesEnabled !== true) return;
       switch (report.event) {
 

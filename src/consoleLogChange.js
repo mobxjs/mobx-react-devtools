@@ -1,4 +1,4 @@
-import mobx from 'mobx';
+import { isObservableArray, isObservableObject, extras } from 'mobx';
 
 let advicedToUseChrome = false;
 
@@ -72,9 +72,9 @@ export default function consoleLogChange(change, filter) {
                 // (array) object, index, newValue, oldValue
                 // (map, obbject) object, name, newValue, oldValue
                 // (value) object, newValue, oldValue
-                if (mobx.isObservableArray(change.object)) {
+                if (isObservableArray(change.object)) {
                     logNext("updated '%s[%s]': %s (was: %s)", observableName(change.object), change.index, formatValue(change.newValue), formatValue(change.oldValue));
-                } else if (mobx.isObservableObject(change.object)) {
+                } else if (isObservableObject(change.object)) {
                     logNext("updated '%s.%s': %s (was: %s)", observableName(change.object), change.name, formatValue(change.newValue), formatValue(change.oldValue));
                 } else {
                     logNext("updated '%s': %s (was: %s)", observableName(change.object), formatValue(change.newValue), formatValue(change.oldValue));
@@ -182,7 +182,7 @@ function autoWrap(token, value) {
 }
 
 function observableName(object) {
-    return mobx.extras.getDebugName(object);
+    return extras.getDebugName(object);
 }
 
 function formatValue(value) {

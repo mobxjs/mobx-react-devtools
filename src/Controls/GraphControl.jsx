@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import mobxReact from 'mobx-react';
+import { trackComponents } from 'mobx-react';
 import { getGlobalState, setGlobalState, eventEmitter, _handleMouseMove, _handleClick } from '../globalStore';
 
 export default class GraphControl extends Component {
@@ -10,7 +10,7 @@ export default class GraphControl extends Component {
   }
 
   componentDidMount() {
-    mobxReact.trackComponents();
+    trackComponents();
 
     eventEmitter.on('update', this.handleUpdate);
 
