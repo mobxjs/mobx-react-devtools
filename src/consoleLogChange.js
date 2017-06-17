@@ -182,6 +182,7 @@ function autoWrap(token, value) {
 }
 
 function observableName(object) {
+    if (!object) return String(object);
     return extras.getDebugName(object);
 }
 
