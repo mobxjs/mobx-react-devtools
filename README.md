@@ -136,6 +136,14 @@ class MyApp extends React.Component {
 
 ## Changelog
 
+4.2.15
+
+* Fixed error on logging & expr
+
+4.2.14
+
+* Stopped using mobx default export (#1043)
+
 4.2.13
 
 * Fixed warning about calling PropTypes validators directly (#62)
