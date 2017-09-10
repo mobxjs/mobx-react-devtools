@@ -85,7 +85,7 @@ setGraphEnabled(false); // same as configureDevtool({ graphEnabled: false });
 ### Custom panel design
 
 ```js
-import DevTool, { GraphControl, LogControl, UpdatesControl } from 'mobx-react-devtools';
+import DevTools, { GraphControl, LogControl, UpdatesControl } from 'mobx-react-devtools';
 
 class MyNiceButton extends React.Component {
   render() {
@@ -105,7 +105,7 @@ class MyApp extends React.Component {
       <div>
 
         {/* Include somewhere with `noPanel` prop. Is needed to display updates and modals */}
-        <DevTool noPanel />
+        <DevTools noPanel />
 
         <div className="my-custom-devtools-panel-design">
           <GraphControl>
