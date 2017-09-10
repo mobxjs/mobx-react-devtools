@@ -57,7 +57,7 @@ Mind that any log statements that are printed during these (re)actions will appe
 ### Configuration
 
 ```js
-import DevTool, { configureDevtool } from 'mobx-react-devtools';
+import { configureDevtool } from 'mobx-react-devtools';
 
 // Any configurations are optional
 configureDevtool({
