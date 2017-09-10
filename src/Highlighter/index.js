@@ -85,7 +85,6 @@ export default class Highlighter extends Component {
 
   render() {
     const { boxes } = this.props;
-    const scopeSelector = `mobx-react-devtool-animation-scope`;
 
     return (
       <div>
