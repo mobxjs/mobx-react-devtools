@@ -2,28 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as styles from './styles';
 
-class AnimatedBox extends Component {
-
-  static propTypes = {
-    willAppear: PropTypes.function,
-    willLeave: PropTypes.function
-  };
-  static defaultProps = {
-    willAppear: () => {},
-    willLeave: () => {},
-  };
-
-  componentWillAppear(callback) {
-    this.props.willAppear(callback)
-  }
-  componentWillLeave() {
-    this.props.willLeave()
-  }
-  render() {
-    return this.props.children
-  }
-}
-
 export default class Highlighter extends Component {
 
   static propTypes = {
