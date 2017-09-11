@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import * as styles from './styles';
 
 export default class ModalContainer extends Component {
@@ -13,7 +13,6 @@ export default class ModalContainer extends Component {
     const html = document.body.parentNode;
     if (prevProps.children && !this.props.children) {
       // Disapeared
-      this.rightOffset = 0;
       html.style.borderRight = null;
       html.style.overflow = null;
     } else if (!prevProps.children && this.props.children) {
