@@ -25,7 +25,7 @@ export default class ModalContainer extends Component {
     }
   }
 
-  stopPropogation = e => e.stopPropagation();
+  stopPropagation = e => e.stopPropagation();
 
   render() {
     const { children, onOverlayClick } = this.props;
@@ -38,7 +38,7 @@ export default class ModalContainer extends Component {
         <div
           key="content"
           style={styles.modal}
-          onClick={this.stopPropogation}
+          onClick={this.stopPropagation}
         >
           {children}
         </div>
