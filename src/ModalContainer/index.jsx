@@ -12,7 +12,7 @@ export default class ModalContainer extends Component {
   componentDidUpdate(prevProps) {
     const html = document.body.parentNode;
     if (prevProps.children && !this.props.children) {
-      // Disapeared
+      // Disappeared
       html.style.borderRight = null;
       html.style.overflow = null;
     } else if (!prevProps.children && this.props.children) {
