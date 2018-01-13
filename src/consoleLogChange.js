@@ -213,8 +213,10 @@ function dir() {
 }
 
 function trace() {
+    consoleSupportsGroups && console.groupCollapsed("stack")
     // TODO: needs wrapping in firefox?
     console.trace("stack") // TODO: use stacktrace.js or similar and strip off unrelevant stuff?
+    consoleSupportsGroups && console.groupEnd()
 }
 
 function closeGroupsOnError() {
