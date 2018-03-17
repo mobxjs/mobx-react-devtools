@@ -1,8 +1,9 @@
-var webpack = require("webpack")
+const { join } = require("path")
+const webpack = require("webpack")
 
 module.exports = {
-    entry: "./src/index.js",
-    hot: false,
+    mode: process.env.NODE_ENV,
+    entry: join(__dirname, "src", "index.js"),
     output: {
         libraryTarget: "umd",
         library: "mobxDevtools",
@@ -10,22 +11,18 @@ module.exports = {
         filename: "index.js"
     },
     resolve: {
-        extensions: ["", ".js", ".jsx"]
+        extensions: [".js", ".jsx"]
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: "babel"
-            },
-            {
-                test: /\.css$/,
-                loader: "style!css/locals?module"
+                use: "babel-loader"
             },
             {
                 test: /\.svg$/,
-                loader: "url-loader"
+                use: "url-loader"
             }
         ]
     },
@@ -43,13 +40,5 @@ module.exports = {
             amd: "react"
         },
         mobx: "mobx"
-    },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            screw_ie8: true,
-            compress: {
-                warnings: false
-            }
-        })
-    ]
+    }
 }
