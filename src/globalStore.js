@@ -1,4 +1,4 @@
-import { spy, extras } from "mobx"
+import { spy, getDependencyTree } from "mobx"
 import { componentByNodeRegistery } from "mobx-react"
 import EventEmmiter from "events"
 import deduplicateDependencies from "./deduplicateDependencies"
@@ -110,7 +110,7 @@ export const _handleClick = e => {
         if (component) {
             e.stopPropagation()
             e.preventDefault()
-            const dependencyTree = extras.getDependencyTree(component.render.$mobx)
+            const dependencyTree = getDependencyTree(component.render.$mobx)
             deduplicateDependencies(dependencyTree)
             setGlobalState({
                 dependencyTree,

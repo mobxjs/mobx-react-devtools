@@ -1,4 +1,4 @@
-import { isObservableArray, isObservableObject, extras } from "mobx"
+import { isObservableArray, isObservableObject, getDebugName } from "mobx"
 
 let advisedToUseChrome = false
 
@@ -237,7 +237,7 @@ function autoWrap(token, value) {
 
 function observableName(object) {
     if (!object) return String(object)
-    return extras.getDebugName(object)
+    return getDebugName(object)
 }
 
 function formatValue(value) {
