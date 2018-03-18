@@ -136,6 +136,10 @@ class MyApp extends React.Component {
 
 ## Changelog
 
+5.0.0
+
+* Upgraded to MobX 4.0
+
 4.2.15
 
 * Fixed error on logging & expr
