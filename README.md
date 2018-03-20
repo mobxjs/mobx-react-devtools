@@ -136,9 +136,13 @@ class MyApp extends React.Component {
 
 ## Changelog
 
+5.0.1
+
+* Updated peer dependencies for mobx-react@5.0.0
+
 5.0.0
 
-* Upgraded to MobX 4.0
+* Upgraded to MobX 4.0.0
 
 4.2.15
 
