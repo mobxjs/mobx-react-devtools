@@ -1,4 +1,4 @@
-import { isObservableArray, isObservableObject, getDebugName } from "mobx"
+import { isObservableArray, isObservableObject, isObservableMap, getDebugName } from "mobx"
 
 let advisedToUseChrome = false
 
@@ -58,15 +58,11 @@ export default function consoleLogChange(change, filter) {
                 break
             case "scheduled-reaction":
                 // object
-                logNext(
-                    `%cscheduled async reaction '%s'`,
-                    "color:#10a210",
-                    observableName(change.object)
-                )
+                logNext(`%cscheduled async reaction '%s'`, "color:#10a210", change.name)
                 break
             case "reaction":
                 // object, fn
-                logNext(`%creaction '%s'`, "color:#10a210", observableName(change.object))
+                logNext(`%creaction '%s'`, "color:#10a210", change.name)
                 // dir({
                 //     fn: change.fn
                 // });
@@ -77,7 +73,7 @@ export default function consoleLogChange(change, filter) {
                 group(
                     `%ccomputed '%s' %s`,
                     "color:#10a210",
-                    observableName(change.object),
+                    change.name,
                     autoWrap("(", getNameForThis(change.target))
                 )
                 // dir({
@@ -104,18 +100,18 @@ export default function consoleLogChange(change, filter) {
                         formatValue(change.newValue),
                         formatValue(change.oldValue)
                     )
-                } else if (isObservableObject(change.object)) {
+                } else if (isObservableObject(change.object) || isObservableMap(change.object)) {
                     logNext(
                         "updated '%s.%s': %s (was: %s)",
-                        observableName(change.object),
                         change.name,
+                        change.key,
                         formatValue(change.newValue),
                         formatValue(change.oldValue)
                     )
                 } else {
                     logNext(
                         "updated '%s': %s (was: %s)",
-                        observableName(change.object),
+                        change.name,
                         formatValue(change.newValue),
                         formatValue(change.oldValue)
                     )
@@ -143,23 +139,19 @@ export default function consoleLogChange(change, filter) {
                 break
             case "add":
                 // (map, object) object, name, newValue
-                logNext(
-                    "set '%s.%s': %s",
-                    observableName(change.object),
-                    change.name,
-                    formatValue(change.newValue)
-                )
+                logNext("set '%s.%s': %s", change.name, change.key, formatValue(change.newValue))
                 dir({
                     newValue: change.newValue
                 })
                 trace()
                 break
             case "delete":
+            case "remove":
                 // (map) object, name, oldValue
                 logNext(
                     "removed '%s.%s' (was %s)",
-                    observableName(change.object),
                     change.name,
+                    change.key,
                     formatValue(change.oldValue)
                 )
                 dir({
@@ -169,7 +161,7 @@ export default function consoleLogChange(change, filter) {
                 break
             case "create":
                 // (value) object, newValue
-                logNext("set '%s': %s", observableName(change.object), formatValue(change.newValue))
+                logNext("set '%s': %s", change.name, formatValue(change.newValue))
                 dir({
                     newValue: change.newValue
                 })
