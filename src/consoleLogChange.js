@@ -1,4 +1,4 @@
-import { isObservableArray, isObservableObject, isObservableMap, getDebugName } from "mobx"
+import { $mobx, isObservableArray, isObservableObject, getDebugName } from "mobx"
 
 let advisedToUseChrome = false
 
@@ -243,8 +243,8 @@ function getNameForThis(who) {
     if (who === null || who === undefined) {
         return ""
     } else if (who && typeof who === "object") {
-        if (who && who.$mobx) {
-            return who.$mobx.name
+        if (who && who[$mobx]) {
+            return who[$mobx].name
         } else if (who.constructor) {
             return who.constructor.name || "object"
         }
