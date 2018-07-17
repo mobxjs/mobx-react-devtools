@@ -1,3 +1,7 @@
+# 6.0.1
+
+* Corrected peer dependency
+
 # 6.0.0
 
 * Added compatibility with MobX 5. See [#96](https://github.com/mobxjs/mobx-react-devtools/pull/96) by [max9599](https://github.com/max9599)
