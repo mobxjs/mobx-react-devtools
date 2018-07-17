@@ -4,6 +4,7 @@
     "description": "Dev-tools for MobX and React",
     "main": "index.js",
     "typings": "index",
+    "sideEffects": false,
     "repository": {
         "type": "git",
         "url": "https://github.com/mobxjs/mobx-react-devtools.git"
