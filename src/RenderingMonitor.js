@@ -20,7 +20,7 @@ export default class RenderingMonitor {
             if (getGlobalState().updatesEnabled !== true) return
             switch (report.event) {
                 case "render":
-                    if (!report.node || isNaN(report.renderTime)) return
+                    if (!report.node || !report.node.getBoundingClientRect || isNaN(report.renderTime)) return
                     const offset = report.node.getBoundingClientRect()
                     const box = this.getBoxForNode(report.node)
                     box.type = "rendering"

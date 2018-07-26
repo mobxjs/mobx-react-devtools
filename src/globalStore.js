@@ -84,7 +84,7 @@ export const _handleMouseMove = e => {
     if (state.graphEnabled) {
         const target = e.target
         const node = findComponentAndNode(target).node
-        if (node) {
+        if (node && node.getBoundingClientRect) {
             const coordinates = node.getBoundingClientRect()
             setGlobalState({
                 hoverBoxes: [
