@@ -1,4 +1,4 @@
-import { $mobx, isObservableArray, isObservableObject, getDebugName } from "mobx"
+import { $mobx, isObservableArray, isObservableObject, isObservableMap, getDebugName } from "mobx"
 
 let advisedToUseChrome = false
 
