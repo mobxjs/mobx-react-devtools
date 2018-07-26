@@ -1,3 +1,8 @@
+# 6.0.2
+
+* Fixed issue where an exception was thrown when an observer component returns a text node. Fixes [#80](https://github.com/mobxjs/mobx-react-devtools/issue/80)
+* Fixed issue where `isObservableMap` was undefined when logging map transtions. Through [#98](https://github.com/mobxjs/mobx-react-devtools/pull/98) by [@AMilassin](https://github.com/AMilassin)
+
 # 6.0.1
 
 * Corrected peer dependency
