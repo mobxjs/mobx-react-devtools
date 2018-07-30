@@ -37,7 +37,7 @@ or
 
 Supported props:
 * `highlightTimeout` — number, default: 1500
-* `position` — object, position of control panel, default: `{ top: 0, right: 20 }`
+* `position` — object, position of control panel, default: `{ top: -2, right: 20 }`
 
 From there on, after each rendering a reactive components logs the following three metrics:
 1. Number of times the component did render so far
