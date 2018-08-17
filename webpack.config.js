@@ -8,7 +8,8 @@ module.exports = {
         libraryTarget: "umd",
         library: "mobxDevtools",
         path: __dirname,
-        filename: "index.js"
+        filename: "index.js",
+        globalObject: "this"
     },
     resolve: {
         extensions: [".js", ".jsx"]

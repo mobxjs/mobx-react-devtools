@@ -1,3 +1,8 @@
+# 6.0.3
+
+* Fixed #101: `window` not defined on node environments
+* Made border uniform, PR [#99](https://github.com/mobxjs/mobx-react-devtools/pull/99) by [@janaagaard75](https://github.com/janaagaard75)
+
 # 6.0.2
 
 * Fixed issue where an exception was thrown when an observer component returns a text node. Fixes [#80](https://github.com/mobxjs/mobx-react-devtools/issue/80)
