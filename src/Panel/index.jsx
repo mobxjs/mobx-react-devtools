@@ -33,7 +33,7 @@ export default class Panel extends Component {
       additionalPanelStyles.bottom = position.bottom;
       additionalPanelStyles.left = position.left;
     } else {
-      additionalPanelStyles.top = '0px';
+      additionalPanelStyles.top = '-2px';
       additionalPanelStyles.right = '20px';
     }
 
