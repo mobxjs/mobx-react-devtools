@@ -37,7 +37,10 @@ or
 
 Supported props:
 * `highlightTimeout` — number, default: 1500
+* `noPanel` — boolean, if set, do not render control panel
 * `position` — object, position of control panel, default: `{ top: -2, right: 20 }`
+* `className` — string, className of control panel
+* `style` — object, inline style object of control panel
 
 From there on, after each rendering a reactive components logs the following three metrics:
 1. Number of times the component did render so far
