@@ -9,7 +9,9 @@ export default class DevTool extends Component {
     static propTypes = {
         highlightTimeout: PropTypes.number,
         position: PropTypes.object,
-        noPanel: PropTypes.bool
+        noPanel: PropTypes.bool,
+        className: PropTypes.string,
+        style: propTypes.object
     }
 
     static defaultProps = {
@@ -38,12 +40,17 @@ export default class DevTool extends Component {
     }
 
     render() {
-        const { noPanel, highlightTimeout } = this.props
+        const { noPanel, highlightTimeout, className, style } = this.props
         const { renderingBoxes, hoverBoxes } = this.state
         return (
             <div>
                 {noPanel !== true && (
-                    <Panel position={this.props.position} highlightTimeout={highlightTimeout} />
+                    <Panel
+                        position={this.props.position}
+                        highlightTimeout={highlightTimeout}
+                        className={className}
+                        style={style}
+                    />
                 )}
                 <Highlighter boxes={renderingBoxes.concat(hoverBoxes)} />
                 <Graph />

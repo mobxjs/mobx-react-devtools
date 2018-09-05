@@ -11,6 +11,8 @@ export default class Panel extends Component {
 
   static propTypes = {
     highlightTimeout: PropTypes.number,
+    className: PropTypes.string,
+    style: PropTypes.object
   };
 
   componentDidMount() {
@@ -24,7 +26,7 @@ export default class Panel extends Component {
   handleUpdate = () => this.setState({});
 
   render() {
-    const { position, highlightTimeout } = this.props;
+    const { position, highlightTimeout, className, style } = this.props;
 
     const additionalPanelStyles = {};
     if (position) {
@@ -39,7 +41,7 @@ export default class Panel extends Component {
 
     return (
       <div>
-        <div style={Object.assign({}, styles.panel, additionalPanelStyles)}>
+        <div clasName={className} style={Object.assign({}, styles.panel, additionalPanelStyles, style)}>
           <UpdatesControl highlightTimeout={highlightTimeout}>
             <PanelButton id={'buttonUpdates'} />
           </UpdatesControl>

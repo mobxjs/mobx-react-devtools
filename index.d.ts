@@ -11,7 +11,9 @@ export interface IDevToolProps {
         bottom?: number | string
         left?: number | string
     }
-    noPanel?: boolean
+    noPanel?: boolean;
+    className?: string;
+    style?: React.CSSProperties;
 }
 
 export default class DevTools extends React.Component<IDevToolProps, {}> {}
