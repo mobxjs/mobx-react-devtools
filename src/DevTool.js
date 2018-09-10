@@ -15,7 +15,8 @@ export default class DevTool extends Component {
     }
 
     static defaultProps = {
-        noPanel: false
+        noPanel: false,
+        className: ''
     }
 
     componentWillMount() {

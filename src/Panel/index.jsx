@@ -15,6 +15,10 @@ export default class Panel extends Component {
     style: PropTypes.object
   };
 
+  static defaultProps = {
+    className: ''
+  }
+
   componentDidMount() {
     eventEmitter.on('update', this.handleUpdate);
   }
@@ -41,7 +45,7 @@ export default class Panel extends Component {
 
     return (
       <div>
-        <div clasName={className} style={Object.assign({}, styles.panel, additionalPanelStyles, style)}>
+        <div className={className} style={Object.assign({}, styles.panel, additionalPanelStyles, style)}>
           <UpdatesControl highlightTimeout={highlightTimeout}>
             <PanelButton id={'buttonUpdates'} />
           </UpdatesControl>
