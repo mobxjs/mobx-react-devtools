@@ -28,10 +28,31 @@ export default class Panel extends Component {
 
     const additionalPanelStyles = {};
     if (position) {
-      additionalPanelStyles.top = position.top;
-      additionalPanelStyles.right = position.right;
-      additionalPanelStyles.bottom = position.bottom;
-      additionalPanelStyles.left = position.left;
+      if (typeof position === 'string') {
+        switch (position) {
+          case 'topRight':
+            additionalPanelStyles.top = '-2px';
+            additionalPanelStyles.right = '20px';
+            break;
+          case 'bottomRight':
+            additionalPanelStyles.bottom = '-2px';
+            additionalPanelStyles.right = '20px';
+            break;
+          case 'bottomLeft':
+            additionalPanelStyles.bottom = '-2px';
+            additionalPanelStyles.left = '20px';
+            break;
+          case 'topLeft':
+            additionalPanelStyles.top = '-2px';
+            additionalPanelStyles.left = '20px';
+            break;
+        }
+      } else {
+        additionalPanelStyles.top = position.top;
+        additionalPanelStyles.right = position.right;
+        additionalPanelStyles.bottom = position.bottom;
+        additionalPanelStyles.left = position.left;
+      }
     } else {
       additionalPanelStyles.top = '-2px';
       additionalPanelStyles.right = '20px';
