@@ -27,7 +27,10 @@ export default class Panel extends Component {
     const { position, highlightTimeout } = this.props;
 
     const additionalPanelStyles = {};
-    if (position) {
+    if (!position) {
+      additionalPanelStyles.top = '-2px';
+      additionalPanelStyles.right = '20px';
+    } else {
       if (typeof position === 'string') {
         switch (position) {
           case 'topRight':
@@ -53,9 +56,6 @@ export default class Panel extends Component {
         additionalPanelStyles.bottom = position.bottom;
         additionalPanelStyles.left = position.left;
       }
-    } else {
-      additionalPanelStyles.top = '-2px';
-      additionalPanelStyles.right = '20px';
     }
 
     return (
