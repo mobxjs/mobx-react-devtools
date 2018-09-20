@@ -8,6 +8,9 @@ import Graph from "./Graph"
 export default class DevTool extends Component {
     static propTypes = {
         highlightTimeout: PropTypes.number,
+        noPanel: PropTypes.bool,
+        className: PropTypes.string,
+        style: propTypes.object,
         position: PropTypes.oneOfType(
             PropTypes.oneOf(['topRight', 'bottomRight', 'bottomLeft', 'topLeft']),
             PropTypes.shape({
@@ -16,12 +19,12 @@ export default class DevTool extends Component {
                 bottom: PropTypes.string,
                 left: PropTypes.string,
             })
-        ),
-        noPanel: PropTypes.bool
+        )
     }
 
     static defaultProps = {
-        noPanel: false
+        noPanel: false,
+        className: ''
     }
 
     componentWillMount() {
@@ -46,12 +49,17 @@ export default class DevTool extends Component {
     }
 
     render() {
-        const { noPanel, highlightTimeout } = this.props
+        const { noPanel, highlightTimeout, className, style } = this.props
         const { renderingBoxes, hoverBoxes } = this.state
         return (
             <div>
                 {noPanel !== true && (
-                    <Panel position={this.props.position} highlightTimeout={highlightTimeout} />
+                    <Panel
+                        position={this.props.position}
+                        highlightTimeout={highlightTimeout}
+                        className={className}
+                        style={style}
+                    />
                 )}
                 <Highlighter boxes={renderingBoxes.concat(hoverBoxes)} />
                 <Graph />
