@@ -8,10 +8,18 @@ import Graph from "./Graph"
 export default class DevTool extends Component {
     static propTypes = {
         highlightTimeout: PropTypes.number,
-        position: PropTypes.object,
         noPanel: PropTypes.bool,
         className: PropTypes.string,
-        style: propTypes.object
+        style: propTypes.object,
+        position: PropTypes.oneOfType(
+            PropTypes.oneOf(['topRight', 'bottomRight', 'bottomLeft', 'topLeft']),
+            PropTypes.shape({
+                top: PropTypes.string,
+                right: PropTypes.string,
+                bottom: PropTypes.string,
+                left: PropTypes.string,
+            })
+        )
     }
 
     static defaultProps = {

@@ -41,6 +41,9 @@ Supported props:
 * `position` — object, position of control panel, default: `{ top: -2, right: 20 }`
 * `className` — string, className of control panel
 * `style` — object, inline style object of control panel
+* `position` — string or object, `topRight`, `bottomRight`, `bottomLeft` or `topLeft`, default: `bottomRight`
+
+The position of the panel can be tweaked by setting the value to an object with `top`, `right`, `bottom` or `left` defined. Setting it to `{ top: -2, right: 20 }` is the same as `topRight`.
 
 From there on, after each rendering a reactive components logs the following three metrics:
 1. Number of times the component did render so far

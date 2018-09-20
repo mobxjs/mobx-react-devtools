@@ -5,7 +5,8 @@ import React = require("react")
 
 export interface IDevToolProps {
     highlightTimeout?: number
-    position?: {
+    position?: "topRight" | "bottomRight" | "bottomLeft" | "topLeft" |
+    {
         top?: number | string
         right?: number | string
         bottom?: number | string
