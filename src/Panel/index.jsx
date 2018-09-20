@@ -16,7 +16,8 @@ export default class Panel extends Component {
   };
 
   static defaultProps = {
-    className: ''
+    className: '',
+    position: 'bottomRight'
   }
 
   componentDidMount() {
@@ -33,9 +34,6 @@ export default class Panel extends Component {
     const { position, highlightTimeout, className, style } = this.props;
 
     const additionalPanelStyles = {};
-    if (!position) {
-      position = 'bottomRight'
-    }
 
     if (typeof position === 'string') {
       switch (position) {
@@ -57,10 +55,7 @@ export default class Panel extends Component {
           break;
       }
     } else {
-      additionalPanelStyles.top = position.top;
-      additionalPanelStyles.right = position.right;
-      additionalPanelStyles.bottom = position.bottom;
-      additionalPanelStyles.left = position.left;
+      Object.assign(additionalPanelStyles, position);
     }
 
     return (
