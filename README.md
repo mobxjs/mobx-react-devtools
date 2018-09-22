@@ -38,7 +38,6 @@ or
 Supported props:
 * `highlightTimeout` — number, default: 1500
 * `noPanel` — boolean, if set, do not render control panel
-* `position` — object, position of control panel, default: `{ top: -2, right: 20 }`
 * `className` — string, className of control panel
 * `style` — object, inline style object of control panel
 * `position` — string or object, `topRight`, `bottomRight`, `bottomLeft` or `topLeft`, default: `bottomRight`
