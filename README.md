@@ -38,11 +38,11 @@ or
 Supported props:
 * `highlightTimeout` — number, default: 1500
 * `noPanel` — boolean, if set, do not render control panel, default: false
-* `position` — string or object, `topRight`, `bottomRight`, `bottomLeft` or `topLeft`, default: `bottomRight`
+* `position` — string (or object), `topRight`, `bottomRight`, `bottomLeft` or `topLeft`, default: `bottomRight`
 * `className` — string, className of control panel, default: not defined
 * `style` — object, inline style object of control panel, default: not defined
 
-The position of the panel can be tweaked by setting the value to an object with `top`, `right`, `bottom` or `left` defined. Setting it to `{ top: -2, right: 20 }` is the same as `topRight`.
+In order to be compatible with earlier versions of `mobx-react-devtools` it is also possible to assign `position` to an object containing inline styles. Using the dedicated `style` property is however recommended.
 
 From there on, after each rendering a reactive components logs the following three metrics:
 1. Number of times the component did render so far
