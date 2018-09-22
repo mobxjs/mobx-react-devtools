@@ -4,6 +4,8 @@ DevTools for MobX to track the rendering behavior and data dependencies of your 
 
 ![MobX DevTools](devtools.gif)
 
+*The default position of the panel has been changed to bottom right. If you prefer top right like in the gif above, add `position="topRight"` to `<DevTools />`.*
+
 ## Installation
 
 `npm install --save-dev mobx-react-devtools`
