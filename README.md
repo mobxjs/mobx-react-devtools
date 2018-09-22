@@ -38,9 +38,9 @@ or
 Supported props:
 * `highlightTimeout` — number, default: 1500
 * `noPanel` — boolean, if set, do not render control panel
+* `position` — string or object, `topRight`, `bottomRight`, `bottomLeft` or `topLeft`, default: `bottomRight`
 * `className` — string, className of control panel
 * `style` — object, inline style object of control panel
-* `position` — string or object, `topRight`, `bottomRight`, `bottomLeft` or `topLeft`, default: `bottomRight`
 
 The position of the panel can be tweaked by setting the value to an object with `top`, `right`, `bottom` or `left` defined. Setting it to `{ top: -2, right: 20 }` is the same as `topRight`.
 
