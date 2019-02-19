@@ -1,18 +1,19 @@
 import { $mobx, isObservableArray, isObservableObject, isObservableMap, getDebugName } from "mobx"
 
-let advisedToUseChrome = false
+let advisedToUseModernBrowser = false
 
 let currentDepth = 0
 let isInsideSkippedGroup = false
 
 export default function consoleLogChange(change, filter) {
     if (
-        advisedToUseChrome === false &&
+        advisedToUseModernBrowser === false &&
         typeof navigator !== "undefined" &&
-        navigator.userAgent.indexOf("Chrome") === -1
+        navigator.userAgent.indexOf("Chrome") === -1 &&
+        navigator.userAgent.indexOf("Firefox") === -1
     ) {
-        console.warn("The output of the MobX logger is optimized for Chrome")
-        advisedToUseChrome = true
+        console.warn("The output of the MobX logger is optimized for browsers with a modern console API like Chrome and Firefox")
+        advisedToUseModernBrowser = true
     }
 
     const isGroupStart = change.spyReportStart === true
