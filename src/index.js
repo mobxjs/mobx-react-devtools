@@ -1,6 +1,4 @@
-import ObjectAssign from "es6-object-assign"
 import { setGlobalState } from "./globalStore"
-ObjectAssign.polyfill()
 
 export { default } from "./DevTool"
 export { default as GraphControl } from "./Controls/GraphControl"
