@@ -1,3 +1,8 @@
+# 6.1.0
+
+* Added more styling options to the panels, see [#100](https://github.com/mobxjs/mobx-react-devtools/pull/100) by [@janaagaard75](https://github.com/janaagaard75) and [#103](https://github.com/mobxjs/mobx-react-devtools/pull/103) by [@rokoroku](https://github.com/rokoroku)
+* Firefox now supports nested spy logging as well. [#105](https://github.com/mobxjs/mobx-react-devtools/pull/105) by [@wkillerud](https://github.com/wkillerud)
+
 # 6.0.3
 
 * Fixed #101: `window` not defined on node environments
