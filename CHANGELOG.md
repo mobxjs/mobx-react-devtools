@@ -1,3 +1,7 @@
+# 6.1.1
+
+* Fixed `Uncaught ReferenceError: propTypes is not defined` [#111](https://github.com/mobxjs/mobx-react-devtools/issues/111) through [#110](https://github.com/mobxjs/mobx-react-devtools/pull/110) by [mpedersen15](https://github.com/mpedersen15)
+
 # 6.1.0
 
 * Added more styling options to the panels, see [#100](https://github.com/mobxjs/mobx-react-devtools/pull/100) by [@janaagaard75](https://github.com/janaagaard75) and [#103](https://github.com/mobxjs/mobx-react-devtools/pull/103) by [@rokoroku](https://github.com/rokoroku)
