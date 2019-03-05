@@ -10,7 +10,7 @@ export default class DevTool extends Component {
         highlightTimeout: PropTypes.number,
         noPanel: PropTypes.bool,
         className: PropTypes.string,
-        style: propTypes.object,
+        style: PropTypes.object,
         position: PropTypes.oneOfType(
             PropTypes.oneOf(['topRight', 'bottomRight', 'bottomLeft', 'topLeft']),
             PropTypes.shape({
