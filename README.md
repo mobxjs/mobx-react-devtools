@@ -1,5 +1,7 @@
 # mobx-react-devtools
 
+_:warning: Note: This package is deprecated. Use the [browser plugin](https://github.com/mobxjs/mobx-devtools) instead. Also note that with mobx-react@6 and higher the package should no longer be needed, see [changelog](https://github.com/mobxjs/mobx-react/blob/master/CHANGELOG.md#600) :warning:_
+
 DevTools for MobX to track the rendering behavior and data dependencies of your app.
 
 ![MobX DevTools](devtools.gif)
